@@ -1,0 +1,6 @@
+{
+  "/rest": {
+    "target": "https://mona.fiehnlab.ucdavis.edu",
+    "secure": false
+  }
+}
