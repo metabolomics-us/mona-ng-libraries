@@ -14,7 +14,21 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "ng-mona-client": [
+        "dist/ng-mona-client/ng-mona-client",
+        "dist/ng-mona-client"
+      ],
+      "ng-chemdoodle": [
+        "dist/ng-chemdoodle/ng-chemdoodle",
+        "dist/ng-chemdoodle"
+      ],
+      "ng-mass-spec-parser": [
+        "dist/ng-mass-spec-parser/ng-mass-spec-parser",
+        "dist/ng-mass-spec-parser"
+      ]
+    }
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,

@@ -126,6 +126,126 @@
           }
         }
       }
+    },
+    "ng-mona-client": {
+      "projectType": "library",
+      "root": "projects/ng-mona-client",
+      "sourceRoot": "projects/ng-mona-client/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/ng-mona-client/tsconfig.lib.json",
+            "project": "projects/ng-mona-client/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/ng-mona-client/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ng-mona-client/src/test.ts",
+            "tsConfig": "projects/ng-mona-client/tsconfig.spec.json",
+            "karmaConfig": "projects/ng-mona-client/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ng-mona-client/tsconfig.lib.json",
+              "projects/ng-mona-client/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "ng-chemdoodle": {
+      "projectType": "library",
+      "root": "projects/ng-chemdoodle",
+      "sourceRoot": "projects/ng-chemdoodle/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/ng-chemdoodle/tsconfig.lib.json",
+            "project": "projects/ng-chemdoodle/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/ng-chemdoodle/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ng-chemdoodle/src/test.ts",
+            "tsConfig": "projects/ng-chemdoodle/tsconfig.spec.json",
+            "karmaConfig": "projects/ng-chemdoodle/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ng-chemdoodle/tsconfig.lib.json",
+              "projects/ng-chemdoodle/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "ng-mass-spec-parser": {
+      "projectType": "library",
+      "root": "projects/ng-mass-spec-parser",
+      "sourceRoot": "projects/ng-mass-spec-parser/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/ng-mass-spec-parser/tsconfig.lib.json",
+            "project": "projects/ng-mass-spec-parser/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/ng-mass-spec-parser/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ng-mass-spec-parser/src/test.ts",
+            "tsConfig": "projects/ng-mass-spec-parser/tsconfig.spec.json",
+            "karmaConfig": "projects/ng-mass-spec-parser/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ng-mass-spec-parser/tsconfig.lib.json",
+              "projects/ng-mass-spec-parser/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }},
   "defaultProject": "mona-web"
 }
