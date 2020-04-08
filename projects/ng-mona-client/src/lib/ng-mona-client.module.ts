@@ -1,12 +1,19 @@
 import { NgModule } from '@angular/core';
-import { NgMonaClientComponent } from './ng-mona-client.component';
+import { HttpClientModule } from '@angular/common/http';
 
+import { Commons } from './commons';
 
+import { AuthService } from './auth.service';
+import { SpectrumService } from './spectrum.service';
 
 @NgModule({
-  declarations: [NgMonaClientComponent],
   imports: [
+    HttpClientModule
   ],
-  exports: [NgMonaClientComponent]
+  providers: [
+    Commons,
+    AuthService,
+    SpectrumService
+  ]
 })
 export class NgMonaClientModule { }
