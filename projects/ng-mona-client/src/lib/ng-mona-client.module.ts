@@ -3,8 +3,8 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { Commons } from './commons';
 
-import { AuthService } from './auth.service';
-import { SpectrumService } from './spectrum.service';
+import { AuthService } from './services/auth.service';
+import { SpectrumService } from './services/spectrum.service';
 
 @NgModule({
   imports: [

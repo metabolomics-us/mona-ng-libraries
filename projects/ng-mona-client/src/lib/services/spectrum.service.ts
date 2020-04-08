@@ -3,9 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
-import { Commons } from './commons';
-import { Spectrum } from './model/spectrum.model';
-import { parse } from 'path';
+import { Commons } from '../commons';
+import { Spectrum } from '../model/spectrum.model';
 
 @Injectable({
   providedIn: 'root'
@@ -14,11 +13,13 @@ export class SpectrumService {
 
   constructor(private http: HttpClient, private commons: Commons) { }
 
+  /**
+   * get a single spectrum by id
+   * @param id spectrum id
+   */
   get(id: string): Observable<Spectrum> {
     return this.http.get<Spectrum>(`${this.commons.apiURL}/rest/spectra/${id}`, this.commons.buildRequestOptions())
-      .pipe(
-        catchError(this.commons.handleError)
-      );
+      .pipe(catchError(this.commons.handleError));
   }
 
   /**
@@ -39,9 +40,7 @@ export class SpectrumService {
     }
 
     return this.http.get<Spectrum[]>(url, this.commons.buildRequestOptions())
-      .pipe(
-        catchError(this.commons.handleError)
-      );
+      .pipe(catchError(this.commons.handleError));
   }
 
   /**

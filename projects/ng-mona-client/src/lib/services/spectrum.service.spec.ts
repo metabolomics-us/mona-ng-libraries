@@ -1,9 +1,9 @@
 import { HttpClientModule, HttpErrorResponse } from '@angular/common/http';
 import { TestBed, async } from '@angular/core/testing';
 
-import { Commons } from './commons';
+import { Commons } from '../commons';
 import { SpectrumService } from './spectrum.service';
-import { Spectrum } from './model/spectrum.model';
+import { Spectrum } from '../model/spectrum.model';
 
 describe('SpectrumService', () => {
   let service: SpectrumService;
@@ -11,7 +11,7 @@ describe('SpectrumService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [ HttpClientModule ],
-      providers: [ Commons, SpectrumService ]
+      providers: [ Commons ]
     });
     service = TestBed.inject(SpectrumService);
   });
