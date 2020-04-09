@@ -28,6 +28,13 @@ export class Submitter {
   firstName: string;
   lastName: string;
   institution: string;
+
+  constructor(emailAddress: string, firstName: string, lastName: string, institution: string) {
+    this.emailAddress = emailAddress;
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.institution = institution;
+  }
 }
 
 export class Library {

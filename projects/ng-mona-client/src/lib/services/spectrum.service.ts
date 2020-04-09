@@ -58,4 +58,40 @@ export class SpectrumService {
         catchError(this.commons.handleError)
       );
   }
+
+  /**
+   * upload a spectrum
+   * @param spectrum spectrum object
+   */
+  add(spectrum: Spectrum): Observable<Spectrum> {
+    return this.http.post<Spectrum>(
+      `${this.commons.apiURL}/rest/spectra`,
+      spectrum,
+      this.commons.buildRequestOptions()
+    ).pipe(catchError(this.commons.handleError));
+  }
+
+  /**
+   * upload/replace a spectrum to the given id
+   * @param spectrum spectrum object
+   * @param id new spectrum id
+   */
+  update(spectrum: Spectrum, id: string): Observable<Spectrum> {
+    return this.http.put<Spectrum>(
+      `${this.commons.apiURL}/rest/spectra/${id}`,
+      spectrum,
+      this.commons.buildRequestOptions()
+    ).pipe(catchError(this.commons.handleError));
+  }
+
+  /**
+   * delete spectrum with the given id
+   * @param id spectrum id
+   */
+  delete(id: string) {
+    return this.http.delete<Spectrum>(
+      `${this.commons.apiURL}/rest/spectra/${id}`,
+      this.commons.buildRequestOptions()
+    ).pipe(catchError(this.commons.handleError));
+  }
 }
