@@ -31,9 +31,12 @@
             "styles": [
               "./node_modules/bootstrap/dist/css/bootstrap.css",
               "./node_modules/font-awesome/css/font-awesome.css",
+              "./lib/ChemDoodleWeb/ChemDoodleWeb.css",
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "./lib/ChemDoodleWeb/ChemDoodleWeb.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -178,6 +181,11 @@
       "root": "projects/ng-chemdoodle",
       "sourceRoot": "projects/ng-chemdoodle/src",
       "prefix": "lib",
+      "schematics": {
+        "@schematics/angular:component": {
+          "styleext": "scss"
+        }
+      },
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
@@ -196,7 +204,13 @@
           "options": {
             "main": "projects/ng-chemdoodle/src/test.ts",
             "tsConfig": "projects/ng-chemdoodle/tsconfig.spec.json",
-            "karmaConfig": "projects/ng-chemdoodle/karma.conf.js"
+            "karmaConfig": "projects/ng-chemdoodle/karma.conf.js",
+            "styles": [
+              "./lib/ChemDoodleWeb/ChemDoodleWeb.css"
+            ],
+            "scripts": [
+              "./lib/ChemDoodleWeb/ChemDoodleWeb.js"
+            ]
           }
         },
         "lint": {
@@ -218,6 +232,11 @@
       "root": "projects/ng-mass-spec-parser",
       "sourceRoot": "projects/ng-mass-spec-parser/src",
       "prefix": "lib",
+      "schematics": {
+        "@schematics/angular:component": {
+          "styleext": "scss"
+        }
+      },
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
