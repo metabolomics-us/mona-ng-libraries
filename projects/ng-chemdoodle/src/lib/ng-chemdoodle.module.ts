@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
-import { NgChemdoodleComponent } from './ng-chemdoodle.component';
+import { ChemdoodleDirective } from './chemdoodle.directive';
 
 
 
 @NgModule({
-  declarations: [NgChemdoodleComponent],
+  declarations: [ChemdoodleDirective],
   imports: [
   ],
-  exports: [NgChemdoodleComponent]
+  exports: [ChemdoodleDirective]
 })
 export class NgChemdoodleModule { }
