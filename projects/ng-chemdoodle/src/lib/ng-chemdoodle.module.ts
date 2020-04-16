@@ -7,6 +7,6 @@ import { ChemdoodleDirective } from './chemdoodle.directive';
   declarations: [ChemdoodleDirective],
   imports: [
   ],
-  exports: [ChemdoodleDirective]
+  exports: []
 })
 export class NgChemdoodleModule { }
