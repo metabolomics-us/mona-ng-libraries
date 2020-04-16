@@ -10,8 +10,8 @@ wget "https://web.chemdoodle.com/downloads/ChemDoodleWeb-${version}.zip"
 unzip "ChemDoodleWeb-${version}.zip"
 
 # keep bundled scripts and styles
-mkdir -p ChemDoodle
-mv "ChemDoodleWeb-${version}"/*.txt "ChemDoodleWeb-${version}"/install/* ChemDoodle
+mkdir -p ChemDoodleWeb
+mv "ChemDoodleWeb-${version}"/*.txt "ChemDoodleWeb-${version}"/install/* ChemDoodleWeb
 
 # clean up
 rm "ChemDoodleWeb-${version}.zip"
