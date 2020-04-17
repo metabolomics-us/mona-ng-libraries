@@ -24,6 +24,8 @@
     "angulartics2": "^8.3.0",
     "bootstrap": "^4.4.1",
     "font-awesome": "^4.7.0",
+    "flot": "^0.8.3",
+    "jquery": "^3.2.1",
     "ngx-cookie-service": "^3.0.4",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",

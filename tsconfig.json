@@ -27,6 +27,10 @@
       "ng-mass-spec-parser": [
         "dist/ng-mass-spec-parser/ng-mass-spec-parser",
         "dist/ng-mass-spec-parser"
+      ],
+      "ng-mass-spec-plotter": [
+        "dist/ng-mass-spec-plotter/ng-mass-spec-plotter",
+        "dist/ng-mass-spec-plotter"
       ]
     }
   },
