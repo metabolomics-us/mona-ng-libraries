@@ -35,7 +35,11 @@
               "src/styles.scss"
             ],
             "scripts": [
-              "./lib/ChemDoodleWeb/ChemDoodleWeb.js"
+              "./lib/ChemDoodleWeb/ChemDoodleWeb.js",
+              "./node_modules/jquery/dist/jquery.min.js",
+              "./node_modules/flot/jquery.flot.js",
+              "./node_modules/flot/jquery.flot.resize.js",
+              "./node_modules/flot/jquery.flot.selection.js"
             ]
           },
           "configurations": {
@@ -264,6 +268,46 @@
             "tsConfig": [
               "projects/ng-mass-spec-parser/tsconfig.lib.json",
               "projects/ng-mass-spec-parser/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "ng-mass-spec-plotter": {
+      "projectType": "library",
+      "root": "projects/ng-mass-spec-plotter",
+      "sourceRoot": "projects/ng-mass-spec-plotter/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/ng-mass-spec-plotter/tsconfig.lib.json",
+            "project": "projects/ng-mass-spec-plotter/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/ng-mass-spec-plotter/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ng-mass-spec-plotter/src/test.ts",
+            "tsConfig": "projects/ng-mass-spec-plotter/tsconfig.spec.json",
+            "karmaConfig": "projects/ng-mass-spec-plotter/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ng-mass-spec-plotter/tsconfig.lib.json",
+              "projects/ng-mass-spec-plotter/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**"
