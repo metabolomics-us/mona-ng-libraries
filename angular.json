@@ -315,6 +315,46 @@
           }
         }
       }
+    },
+    "ng-cts-client": {
+      "projectType": "library",
+      "root": "projects/ng-cts-client",
+      "sourceRoot": "projects/ng-cts-client/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/ng-cts-client/tsconfig.lib.json",
+            "project": "projects/ng-cts-client/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/ng-cts-client/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ng-cts-client/src/test.ts",
+            "tsConfig": "projects/ng-cts-client/tsconfig.spec.json",
+            "karmaConfig": "projects/ng-cts-client/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ng-cts-client/tsconfig.lib.json",
+              "projects/ng-cts-client/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }},
   "defaultProject": "mona-web"
 }

@@ -31,6 +31,10 @@
       "ng-mass-spec-plotter": [
         "dist/ng-mass-spec-plotter/ng-mass-spec-plotter",
         "dist/ng-mass-spec-plotter"
+      ],
+      "ng-cts-client": [
+        "dist/ng-cts-client/ng-cts-client",
+        "dist/ng-cts-client"
       ]
     }
   },
