@@ -28,7 +28,6 @@ export class NgMassSpecPlotterComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    console.log('Spectrum: ' + this.spectrum);
     this.parsedData = this.parseData(this.spectrum);
     let data = this.parsedData.data;
     const annotations = this.parsedData.annotations;
@@ -61,7 +60,7 @@ export class NgMassSpecPlotterComponent implements OnInit, OnChanges {
     // Format plot if a thumbnail version is desired
     if (typeof this.miniPlot !== 'undefined') {
       // Remove tick labels and set plot limits
-      options.xaxis = {ticks: false};
+      options.xaxis = {min: 0, max: Math.max(1.05 * mzMax, 500), ticks: false};
       options.yaxis = {min: 0, max: intensityMax, ticks: false};
 
       // Filter low intensity peaks
@@ -71,7 +70,7 @@ export class NgMassSpecPlotterComponent implements OnInit, OnChanges {
     // Otherwise, set up plot selection zoom and tooltips
     else {
       // Set up plot limits
-      options.xaxis = {min: 0, max: Math.max(mzMax, 1000)};
+      options.xaxis = {min: 0, max: 1.05 * mzMax};
       options.yaxis = {min: 0, max: intensityMax};
 
       // Set plot selection mode
@@ -210,7 +209,7 @@ export class NgMassSpecPlotterComponent implements OnInit, OnChanges {
     // Reset x-axis range
     $.each(this.plot.getXAxes(), (_, axis) => {
       axis.options.min = 0;
-      axis.options.max = Math.max(mzMax, 1000);
+      axis.options.max = 1.05 * mzMax;
     });
 
     // Reset y-axis range
