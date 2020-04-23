@@ -31,7 +31,7 @@ export class ChemdoodleDirective implements OnChanges {
       this.renderer.appendChild(this.el.nativeElement, canvas);
 
       // initiate ChemDoole viewer
-      const viewACS = new ChemDoodle.ViewerCanvas(viewerId, 300, 300);
+      const viewACS = new ChemDoodle.ViewerCanvas(viewerId, 200, 200);
       viewACS.styles.atoms_displayTerminalCarbonLabels_2D =  true;
       viewACS.styles.atoms_useJMOLColors = true;
       viewACS.styles.bonds_clearOverlaps_2D = true;
