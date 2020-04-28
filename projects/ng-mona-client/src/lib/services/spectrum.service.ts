@@ -25,32 +25,46 @@ export class SpectrumService {
   /**
    * list spectra from the api
    * @param query optional rsql query
+   * @param textSearch optional text search string
    * @param page optional page number
    * @param pageSize required page size
    */
-  list(query?: string, page?: number, pageSize: number = 10): Observable<Spectrum[]> {
-    let url = `${this.commons.apiURL}/rest/spectra?size=${pageSize}`;
+  list(query?: string, textSearch?: string, page?: number, pageSize: number = 10): Observable<Spectrum[]> {
+    let url = `${this.commons.apiURL}/rest/spectra`;
+    let queryParams = `size=${pageSize}`;
 
     if (page !== undefined) {
-      url += `&page=${page}`;
+      queryParams += `&page=${page}`;
+    }
+
+    if (query !== undefined || textSearch !== undefined) {
+      url += '/search';
     }
 
     if (query !== undefined) {
-      url += `&query=${query}`;
+      queryParams += `&query=${query}`;
     }
 
-    return this.http.get<Spectrum[]>(url, this.commons.buildRequestOptions())
+    if (textSearch !== undefined) {
+      queryParams += `&text=${textSearch}`;
+    }
+
+    return this.http.get<Spectrum[]>(`${url}?${queryParams}`, this.commons.buildRequestOptions())
       .pipe(catchError(this.commons.handleError));
   }
 
   /**
    * get spectrum count
    * @param query optional rsql query
+   * @param textSearch optional text search string
    */
-  count(query?: string) {
-    const url = (query === undefined) ?
+  count(query?: string, textSearch?: string) {
+    query = (query === undefined) ? '' : query;
+    textSearch = (textSearch === undefined) ? '' : textSearch;
+
+    const url = (query === undefined && textSearch === undefined) ?
       `${this.commons.apiURL}/rest/spectra/count` :
-      `${this.commons.apiURL}/rest/spectra/search/count?query=${query}`;
+      `${this.commons.apiURL}/rest/spectra/search/count?query=${query}&text=${textSearch}`;
 
     return this.http.get(url, this.commons.buildRequestOptions({responseType: 'text'}))
       .pipe(
