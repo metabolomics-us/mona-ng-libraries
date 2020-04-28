@@ -11,7 +11,6 @@ import { SpectrumService } from './services/spectrum.service';
     HttpClientModule
   ],
   providers: [
-    Commons,
     AuthService,
     SpectrumService
   ]

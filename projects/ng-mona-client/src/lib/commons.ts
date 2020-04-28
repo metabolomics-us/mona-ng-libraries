@@ -3,7 +3,9 @@ import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 
 import { throwError } from 'rxjs';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class Commons {
 
   apiURL = 'https://mona.fiehnlab.ucdavis.edu';

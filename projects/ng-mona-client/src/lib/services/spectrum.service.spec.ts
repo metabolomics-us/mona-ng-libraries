@@ -21,8 +21,6 @@ describe('SpectrumService', () => {
   });
 
   it('should get a count for all spectra', async(() => {
-    console.log('RUNNING');
-
     service.count().subscribe(
       response => {
         expect(response).toBeGreaterThan(0);
