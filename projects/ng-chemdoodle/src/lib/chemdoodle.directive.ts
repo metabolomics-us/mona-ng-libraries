@@ -1,7 +1,7 @@
 import { Directive, ElementRef, Input, OnChanges, Renderer2, SimpleChanges } from '@angular/core';
 
 // ChemDoodle injection
-declare var ChemDoodle: any;
+declare const ChemDoodle: any;
 
 
 @Directive({
