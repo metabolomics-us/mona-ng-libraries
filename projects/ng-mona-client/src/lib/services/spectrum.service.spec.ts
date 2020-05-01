@@ -30,6 +30,16 @@ describe('SpectrumService', () => {
     );
   }));
 
+  it('should get a count for a query', async(() => {
+    service.count(`metaData=q='name=="precursor type" and value=="[M+H]+"'`).subscribe(
+      response => {
+        expect(response).toBeGreaterThan(0);
+      },
+      (error: HttpErrorResponse) =>
+        fail(JSON.stringify(error))
+    );
+  }));
+
   it('should get a spectrum', async(() => {
     service.list('', '', 0, 1).subscribe(
       (response: Spectrum[]) => {

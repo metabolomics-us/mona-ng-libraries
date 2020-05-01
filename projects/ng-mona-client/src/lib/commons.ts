@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpErrorResponse, HttpHeaders, HttpParameterCodec, HttpParams } from '@angular/common/http';
 
 import { throwError } from 'rxjs';
 
@@ -26,7 +26,8 @@ export class Commons {
    */
   buildRequestOptions(baseOptions?) {
     const options = {
-      headers: new HttpHeaders()
+      headers: new HttpHeaders(),
+      params: new HttpParams({encoder: new CustomUrlEncoder()})
     };
 
     if (this.apiKey !== undefined) {
@@ -35,7 +36,16 @@ export class Commons {
 
     // set base options
     if (baseOptions !== undefined) {
-      Object.keys(baseOptions).forEach(k => options[k] = baseOptions[k]);
+      Object.keys(baseOptions).forEach(o => {
+        if (o === 'params') {
+          // handle parameters separately and handle potentially multiple values per param
+          baseOptions.params.keys().forEach(k => {
+            baseOptions.params.getAll(k).forEach(v => options.params = options.params.append(k, v));
+          });
+        } else {
+          options[o] = baseOptions[o];
+        }
+      });
     }
 
     return options;
@@ -53,5 +63,31 @@ export class Commons {
       // Get server-side error
       return throwError(`Error Code: ${error.status}\nMessage: ${error.message}`);
     }
- }
+  }
+}
+
+/**
+ * custom encoder for handling encoding of url query parameters by avoiding angular's
+ * standardEncoding which un-encodes certain special characters
+ *
+ * https://github.com/angular/angular/issues/18261#issuecomment-338354119
+ * https://github.com/angular/angular/blob/master/packages/common/http/src/params.ts
+ */
+export class CustomUrlEncoder implements HttpParameterCodec {
+
+  encodeKey(key: string): string {
+    return encodeURIComponent(key);
+  }
+
+  encodeValue(value: string): string {
+    return encodeURIComponent(value);
+  }
+
+  decodeKey(key: string): string {
+    return decodeURIComponent(key);
+  }
+
+  decodeValue(value: string): string {
+    return decodeURIComponent(value);
+  }
 }

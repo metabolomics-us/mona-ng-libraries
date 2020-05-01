@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
@@ -30,28 +30,18 @@ export class SpectrumService {
    * @param pageSize required page size
    */
   list(query?: string, textSearch?: string, page?: number, pageSize: number = 10): Observable<Spectrum[]> {
-    let url = `${this.commons.apiURL}/rest/spectra`;
-    let queryParams = `size=${pageSize}`;
 
-    if (page !== undefined) {
-      queryParams += `&page=${page}`;
-    }
+    const params = new HttpParams()
+      .set('query', query ? query : '')
+      .set('text', textSearch ? textSearch : '')
+      .set('page', (page ? page : 0).toString())
+      .set('size', pageSize.toString());
 
-    if (query !== undefined || textSearch !== undefined) {
-      url += '/search';
-    }
+    const url = (params.keys().length === 0) ?
+      `${this.commons.apiURL}/rest/spectra` :
+      `${this.commons.apiURL}/rest/spectra/search`;
 
-    if (query !== undefined) {
-      queryParams += `&query=${encodeURIComponent(query)}`;
-    }
-
-    if (textSearch !== undefined) {
-      queryParams += `&text=${encodeURIComponent(textSearch)}`;
-    }
-
-    console.log(`${url}?${queryParams}`);
-
-    return this.http.get<Spectrum[]>(`${url}?${queryParams}`, this.commons.buildRequestOptions())
+    return this.http.get<Spectrum[]>(url, this.commons.buildRequestOptions({params}))
       .pipe(catchError(this.commons.handleError));
   }
 
@@ -61,14 +51,21 @@ export class SpectrumService {
    * @param textSearch optional text search string
    */
   count(query?: string, textSearch?: string) {
-    query = (query === undefined) ? '' : query;
-    textSearch = (textSearch === undefined) ? '' : textSearch;
 
-    const url = (query === undefined && textSearch === undefined) ?
+    const options = {
+      params: new HttpParams(),
+      responseType: 'text'
+    };
+
+    // set query and text parameters
+    options.params = options.params.append('query', query ? query : '');
+    options.params = options.params.append('text',  textSearch ? textSearch : '');
+
+    const url = (options.params.keys().length === 0) ?
       `${this.commons.apiURL}/rest/spectra/count` :
-      `${this.commons.apiURL}/rest/spectra/search/count?query=${query}&text=${textSearch}`;
+      `${this.commons.apiURL}/rest/spectra/search/count`;
 
-    return this.http.get(url, this.commons.buildRequestOptions({responseType: 'text'}))
+    return this.http.get(url, this.commons.buildRequestOptions(options))
       .pipe(
         map((result: string) => parseInt(result, 10)),
         catchError(this.commons.handleError)
