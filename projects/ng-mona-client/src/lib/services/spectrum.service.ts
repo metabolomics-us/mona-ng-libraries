@@ -42,12 +42,14 @@ export class SpectrumService {
     }
 
     if (query !== undefined) {
-      queryParams += `&query=${query}`;
+      queryParams += `&query=${encodeURIComponent(query)}`;
     }
 
     if (textSearch !== undefined) {
-      queryParams += `&text=${textSearch}`;
+      queryParams += `&text=${encodeURIComponent(textSearch)}`;
     }
+
+    console.log(`${url}?${queryParams}`);
 
     return this.http.get<Spectrum[]>(`${url}?${queryParams}`, this.commons.buildRequestOptions())
       .pipe(catchError(this.commons.handleError));
