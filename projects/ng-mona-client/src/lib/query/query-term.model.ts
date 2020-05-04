@@ -1,10 +1,5 @@
 export abstract class QueryTerm {
-
-  // toString(): string;
-
-  // encode(): string {
-  //   return '';
-  // }
+  abstract toString(): string;
 }
 
 export class NameQueryTerm extends QueryTerm {
@@ -16,6 +11,10 @@ export class NameQueryTerm extends QueryTerm {
     this.match = match;
     this.name = name;
   }
+
+  toString(): string {
+    return `Name: ${this.name}`;
+  }
 }
 
 export class SPLASHQueryTerm extends QueryTerm {
@@ -25,6 +24,10 @@ export class SPLASHQueryTerm extends QueryTerm {
     super();
     this.splash = splash;
   }
+
+  toString(): string {
+    return `SPLASH: ${this.splash}`;
+  }
 }
 
 export class SubmitterQueryTerm extends QueryTerm {
@@ -33,6 +36,10 @@ export class SubmitterQueryTerm extends QueryTerm {
   constructor(id: string) {
     super();
     this.id = id;
+  }
+
+  toString(): string {
+    return `Submitter: ${this.id}`;
   }
 }
 
@@ -46,6 +53,10 @@ export class TagQueryTerm extends QueryTerm {
     this.match = match;
     this.collection = collection;
     this.tag = tag;
+  }
+
+  toString(): string {
+    return `Tag: ${this.tag}`;
   }
 }
 
@@ -62,21 +73,31 @@ export class MetaDataQueryTerm extends QueryTerm {
     this.name = name;
     this.value = value;
   }
+
+  toString(): string {
+    return `${this.name}: ${this.value}`;
+  }
 }
 
 export class NumericMetaDataQueryTerm extends QueryTerm {
-  match: string;
   collection: string;
   name: string;
   value: number;
   tolerance: number;
 
-  constructor(name: string, value: number, tolerance: number, collection: string = 'metaData', match: string = 'exact') {
+  constructor(name: string, value: number, tolerance: number, collection: string = 'metaData') {
     super();
-    this.match = match;
     this.collection = collection;
     this.name = name;
     this.value = value;
     this.tolerance = tolerance;
+  }
+
+  toString(): string {
+    if (this.tolerance > 0) {
+      return `${this.name}: ${this.value} +/- ${this.tolerance}`;
+    } else {
+      return `${this.name}: ${this.value}`;
+    }
   }
 }
