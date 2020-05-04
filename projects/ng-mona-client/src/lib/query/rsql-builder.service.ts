@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { QueryTerm, MetaDataQueryTerm, NameQueryTerm, NumericMetaDataQueryTerm, SPLASHQueryTerm, SubmitterQueryTerm, TagQueryTerm } from './query-term.model';
+import { MetaDataQueryTerm, NameQueryTerm, NumericMetaDataQueryTerm, QueryTerm, SPLASHQueryTerm, SubmitterQueryTerm, TagQueryTerm } from './query-term.model';
 
 @Injectable({
   providedIn: 'root'
@@ -18,26 +18,18 @@ export class RSQLBuilderService {
     queryTerms.forEach(x => {
       if (x instanceof NameQueryTerm) {
         rsqlTerms.push(this.buildRSQLFromNameTerm(x));
-      }
-
-      if (x instanceof SPLASHQueryTerm) {
+      } else if (x instanceof SPLASHQueryTerm) {
         rsqlTerms.push(this.buildRSQLFromSPLASHTerm(x));
-      }
-
-      if (x instanceof SubmitterQueryTerm) {
+      } else if (x instanceof SubmitterQueryTerm) {
         rsqlTerms.push(this.buildRSQLFromSubmitterTerm(x));
-      }
-
-      if (x instanceof TagQueryTerm) {
+      } else if (x instanceof TagQueryTerm) {
         rsqlTerms.push(this.buildRSQLFromTagTerm(x));
-      }
-
-      if (x instanceof MetaDataQueryTerm) {
+      } else if (x instanceof MetaDataQueryTerm) {
         rsqlTerms.push(this.buildRSQLFromMetaDataTerm(x));
-      }
-
-      if (x instanceof NumericMetaDataQueryTerm) {
+      } else if (x instanceof NumericMetaDataQueryTerm) {
         rsqlTerms.push(this.buildRSQLFromNumericMetaDataTerm(x));
+      } else {
+        throw new Error('invalid query term object type encountered');
       }
     });
 
@@ -58,6 +50,8 @@ export class RSQLBuilderService {
         return `compound.names=q='name=match=".*${queryTerm.name}.*"'`;
       case 'like':
         return `compound.names=q='name=like="${queryTerm.name}"'`;
+      default:
+        throw new Error(`invalid match term enountered: ${queryTerm.match}`);
     }
   }
 
@@ -99,6 +93,8 @@ export class RSQLBuilderService {
         return `${queryTerm.collection}.text=match=".*${queryTerm.tag}.*"`;
       case 'like':
         return `${queryTerm.collection}.text=like="${queryTerm.tag}"`;
+      default:
+        throw new Error(`invalid match term enountered: ${queryTerm.match}`);
     }
   }
 
@@ -116,6 +112,8 @@ export class RSQLBuilderService {
         return `${queryTerm.collection}=q='name=="${queryTerm.name}" and value=match=".*${queryTerm.value}.*"'`;
       case 'like':
         return `${queryTerm.collection}=q='name=="${queryTerm.name}" and value=like="${queryTerm.value}"'`;
+      default:
+        throw new Error(`invalid match term enountered: ${queryTerm.match}`);
     }
   }
 

@@ -1,18 +1,20 @@
 import { Injectable } from '@angular/core';
 
-import bencodec from 'bencodec';
+import { RSQLBuilderService } from './rsql-builder.service';
+import { MetaDataQueryTerm, NameQueryTerm, NumericMetaDataQueryTerm, QueryTerm, SPLASHQueryTerm, SubmitterQueryTerm, TagQueryTerm } from './query-term.model';
+import { QueryTermService } from './query-term.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SpectrumQueryService {
 
-  queryTerms: any[] = [];
+  queryTerms: QueryTerm[] = [];
 
   query: string;
   textSearch: string;
 
-  constructor() {
+  constructor(private rsqlBuilderService: RSQLBuilderService, private queryTermService: QueryTermService) {
     this.resetQuery();
   }
 
@@ -31,38 +33,32 @@ export class SpectrumQueryService {
    * build query components into an RSQL query string
    */
   buildRSQLQuery(): string {
-    console.log(bencodec.encode({type: 'name', match: 'exact', name: 'test'}).toString());
-
-    const terms = [];
+    const rsql: string = this.rsqlBuilderService.buildRSQLFromQueryTerms(this.queryTerms);
 
     if (this.query && this.query !== '') {
-      terms.push(this.query);
+      return `${rsql} and ${this.query}`;
+    } else {
+      return rsql;
     }
-
-    this.queryTerms.forEach(x => {
-      switch (x.type) {
-        case 'tag':
-          terms.push(`tags.text==${x.tag}`);
-          break;
-
-        case 'name':
-          terms.push(`compound.names=q='name=like="${x.name}"'`);
-          break;
-
-        case 'metaData':
-          terms.push(`${x.collection}=q='name=="${x.name}" and value=="${x.value}"'`);
-          break;
-      }
-    });
-
-    return terms.join(' and ');
   }
 
-  getQueryTerms() {
+  getQueryTerms(): QueryTerm[] {
     return this.queryTerms;
   }
 
-  getQuery() {
+  setQueryTerms(queryTerms: QueryTerm[]) {
+    this.queryTerms = queryTerms;
+  }
+
+  getEncodedQueryTerms(): string[] {
+    return this.queryTerms.map(x => this.queryTermService.encode(x));
+  }
+
+  setEncodedQueryTerms(queryTerms: string[]) {
+    this.queryTerms = queryTerms.map(x => this.queryTermService.decode(x));
+  }
+
+  getQuery(): string {
     return this.query;
   }
 
@@ -79,37 +75,45 @@ export class SpectrumQueryService {
   }
 
 
-  addNameToQuery(name: string, match: string = 'exact') {
-    this.queryTerms.push({type: 'name', match, name});
+  addNameToQuery(name: string, match: string = 'like') {
+    this.queryTerms.push(new NameQueryTerm(name, match));
   }
 
-  addSplashToQuery(splash: string, match: string = 'exact') {
-    this.queryTerms.push({type: 'name', match, name});
+  addSplashToQuery(splash: string) {
+    this.queryTerms.push(new SPLASHQueryTerm(splash));
   }
 
   addSubmitterToQuery(submitterId: string) {
-
+    this.queryTerms.push(new SubmitterQueryTerm(submitterId));
   }
 
 
-  addTagToQuery(tag: string, match: string = 'exact', collection: string = 'tags') {
-    this.queryTerms.push({type: 'tag', collection, match, tag});
+  addTagToQuery(tag: string, match: string = 'exact') {
+    this.queryTerms.push(new TagQueryTerm(tag, 'tags', match));
   }
 
-  addCompoundTagToQuery(tag: string, match: string = 'exact', collection: string = 'tags') {
-    this.addMetaDataToQuery(tag, match, 'compound.tags');
+  addCompoundTagToQuery(tag: string, match: string = 'exact') {
+    this.queryTerms.push(new TagQueryTerm(tag, 'compound.tags', match));
   }
 
 
-  addMetaDataToQuery(name: string, value: any, match: string = 'exact', collection: string = 'metaData') {
-    this.queryTerms.push({type: 'metaData', collection, match, name, value});
+  addMetaDataToQuery(name: string, value: string, match: string = 'exact') {
+    this.queryTerms.push(new MetaDataQueryTerm(name, value, 'metaData', match));
+  }
+
+  addNumericMetaDataToQuery(name: string, value: number, tolerance: number) {
+    this.queryTerms.push(new NumericMetaDataQueryTerm(name, value, tolerance, 'metaData'));
   }
 
   addCompoundMetaDataToQuery(name: string, value: any, match: string = 'exact') {
-    this.addMetaDataToQuery(name, value, match, 'compound.metaData');
+    this.queryTerms.push(new MetaDataQueryTerm(name, value, 'compound.metaData', match));
+  }
+
+  addNumericCompoundMetaDataToQuery(name: string, value: number, tolerance: number) {
+    this.queryTerms.push(new NumericMetaDataQueryTerm(name, value, tolerance, 'compound.metaData'));
   }
 
   addClassificationToQuery(name: string, value: any, match: string = 'exact') {
-    this.addMetaDataToQuery(name, value, match, 'compound.classification');
+    this.queryTerms.push(new MetaDataQueryTerm(name, value, 'compound.classification', match));
   }
 }
