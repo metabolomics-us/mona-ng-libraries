@@ -124,9 +124,13 @@ export class RSQLBuilderService {
    * @param queryTerm query term for numeric metadata
    */
   private buildRSQLFromNumericMetaDataTerm(queryTerm: NumericMetaDataQueryTerm): string {
-    const leftBoundary = queryTerm.value - queryTerm.tolerance;
-    const rightBoundary = queryTerm.value + queryTerm.tolerance;
+    if (queryTerm.tolerance > 0) {
+      const leftBoundary = queryTerm.value - queryTerm.tolerance;
+      const rightBoundary = queryTerm.value + queryTerm.tolerance;
 
-    return `${queryTerm.collection}=q='name=="${queryTerm.name}" and value>=${leftBoundary} and value<=${rightBoundary}'`;
+      return `${queryTerm.collection}=q='name=="${queryTerm.name}" and value>=${leftBoundary} and value<=${rightBoundary}'`;
+    } else {
+      return `${queryTerm.collection}=q='name=="${queryTerm.name}" and value==${queryTerm.value}'`;
+    }
   }
 }
