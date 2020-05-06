@@ -18,10 +18,10 @@ describe('Commons', () => {
 
   it('should create headers correctly with no api key', () => {
     let options = service.buildRequestOptions();
-    expect(Object.keys(options).length).toBe(1);
+    expect(Object.keys(options).length).toBe(2);
 
     options = service.buildRequestOptions({test: -1});
-    expect(Object.keys(options).length).toBe(2);
+    expect(Object.keys(options).length).toBe(3);
     expect((options as any).test).toBe(-1);
   });
 
@@ -29,11 +29,11 @@ describe('Commons', () => {
     service.setAPIKey('test');
 
     let options = service.buildRequestOptions();
-    expect(Object.keys(options).length).toBe(1);
+    expect(Object.keys(options).length).toBe(2);
     expect(options.headers.has('Authorization'));
 
     options = service.buildRequestOptions({test: -1});
-    expect(Object.keys(options).length).toBe(2);
+    expect(Object.keys(options).length).toBe(3);
     expect(options.headers.has('Authorization'));
     expect((options as any).test).toBe(-1);
   });
