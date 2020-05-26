@@ -27,7 +27,7 @@ import { NgMonaClientModule } from '@wcmc/ng-mona-client';
 
 ### Inject a REST service and model into your component/service/etc
 ```typescript
-import { Spectrum, SpectrumService } from 'ng-mona-client';
+import { Spectrum, SpectrumService } from '@wcmc/ng-mona-client';
  
 @Component({
   // ..
@@ -36,8 +36,8 @@ export class AppComponent {
   constructor(private spectrumService: SpectrumService) {
     // empty query, empty text search, 0th page, page size of 1
     this.spectrumService.list('', '', 0, 1)
-      .subscribe(spectrum => {
-        // returns the first spectrum from the search API
+      .subscribe((spectrum: Spectrum[]) => {
+        // return an array containing one spectrum from the search API
       });
     }
   // ..

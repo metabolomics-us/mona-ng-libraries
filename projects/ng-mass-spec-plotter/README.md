@@ -14,7 +14,7 @@ npm install @wcmc/ng-mass-spec-plotter --save
 
 ### Import the library
 ```typescript
-import { NgMassSpecPlotterModule } from 'ng-mass-spec-plotter';
+import { NgMassSpecPlotterModule } from '@wcmc/ng-mass-spec-plotter';
  
 @NgModule({
  // ...
@@ -23,6 +23,19 @@ import { NgMassSpecPlotterModule } from 'ng-mass-spec-plotter';
    NgMassSpecPlotterModule
  ]
 })
+```
+
+### Add required scripts to the angular configuration
+In `angular.json` under `architect.build.options` within your project definition, add the following scripts
+
+```json
+"scripts": [
+
+  "./node_modules/flot/jquery.js",
+  "./node_modules/flot/jquery.flot.js",
+  "./node_modules/flot/jquery.flot.resize.js",
+  "./node_modules/flot/jquery.flot.selection.js"
+]
 ```
 
 ### Use the custom component in your module
