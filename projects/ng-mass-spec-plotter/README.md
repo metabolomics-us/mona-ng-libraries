@@ -1,6 +1,6 @@
 # Angular Mass Spectrum Plotter
 
-A mass spectrum visualization tool for Angular.
+A mass spectrum visualization component for Angular.
 
 This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.0.
 
@@ -30,7 +30,6 @@ In `angular.json` under `architect.build.options` within your project definition
 
 ```json
 "scripts": [
-
   "./node_modules/flot/jquery.js",
   "./node_modules/flot/jquery.flot.js",
   "./node_modules/flot/jquery.flot.resize.js",
@@ -39,7 +38,7 @@ In `angular.json` under `architect.build.options` within your project definition
 ```
 
 ### Use the custom component in your module
-The `lib-ng-mass-spec-plotter` component must be contained within an element with fixed height:
+The `lib-ng-mass-spec-plotter` component must use a unique id and be contained within an element with fixed height:
 
 ```html
 <div style="width: 100%; height: 400px">
