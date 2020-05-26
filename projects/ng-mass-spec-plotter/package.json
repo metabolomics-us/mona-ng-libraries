@@ -1,7 +1,7 @@
 {
   "name": "@wcmc/ng-mass-spec-plotter",
   "version": "0.1.0",
-  "description": "An mass spectrum visualization tool for angular",
+  "description": "A mass spectrum visualization tool for Angular",
   "author": "Sajjan Singh Mehta",
   "license": "LGPL-3.0",
   "dependencies": {

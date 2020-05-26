@@ -1,24 +1,39 @@
-# NgMassSpecPlotter
+# Angular Mass Spectrum Plotter
+
+A mass spectrum visualization tool for Angular.
 
 This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.0.
 
-## Code scaffolding
+## Installation
 
-Run `ng generate component component-name --project ng-mass-spec-plotter` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project ng-mass-spec-plotter`.
-> Note: Don't forget to add `--project ng-mass-spec-plotter` or else it will be added to the default project in your `angular.json` file. 
+```shell
+npm install @wcmc/ng-mass-spec-plotter --save
+```
 
-## Build
+## Usage
 
-Run `ng build ng-mass-spec-plotter` to build the project. The build artifacts will be stored in the `dist/` directory.
+### Import the library
+```typescript
+import { NgMassSpecPlotterModule } from 'ng-mass-spec-plotter';
+ 
+@NgModule({
+ // ...
+ imports: [
+   // ...
+   NgMassSpecPlotterModule
+ ]
+})
+```
 
-## Publishing
+### Use the custom component in your module
+The `lib-ng-mass-spec-plotter` component must be contained within an element with fixed height:
 
-After building your library with `ng build ng-mass-spec-plotter`, go to the dist folder `cd dist/ng-mass-spec-plotter` and run `npm publish`.
+```html
+<div style="width: 100%; height: 400px">
+  <lib-ng-mass-spec-plotter
+    spectrum="100:50 105:100 125:25"
+    id="uniqueId"></lib-ng-mass-spec-plotter>
+</div>
+```
 
-## Running unit tests
-
-Run `ng test ng-mass-spec-plotter` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+The component also accepts a `miniPlot` attribute to create a small, square, unlabeled figure for previews.
