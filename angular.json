@@ -31,15 +31,18 @@
             "styles": [
               "./node_modules/bootstrap/dist/css/bootstrap.css",
               "./node_modules/font-awesome/css/font-awesome.css",
+              "./node_modules/st/css/st.css",
               "./lib/ChemDoodleWeb/ChemDoodleWeb.css",
               "src/styles.scss"
             ],
             "scripts": [
-              "./lib/ChemDoodleWeb/ChemDoodleWeb.js",
-              "./node_modules/jquery/dist/jquery.min.js",
+              "./node_modules/st/st.js",
+              "./node_modules/st/libs/jquery/jquery.js",
+              "./node_modules/st/libs/d3/d3.js",
               "./node_modules/flot/jquery.flot.js",
               "./node_modules/flot/jquery.flot.resize.js",
-              "./node_modules/flot/jquery.flot.selection.js"
+              "./node_modules/flot/jquery.flot.selection.js",
+              "./lib/ChemDoodleWeb/ChemDoodleWeb.js"
             ]
           },
           "configurations": {
