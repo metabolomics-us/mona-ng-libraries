@@ -62,7 +62,7 @@ export class SpectackleDirective implements OnChanges {
   private parseSpectrum(spectrum: string, invert: boolean = false) {
     const peaks = [];
 
-    this.spectrum.split(' ').forEach((ion: string) => {
+    spectrum.split(' ').forEach((ion: string) => {
       const x = ion.split(':');
       const mz = parseFloat(x[0]);
       const intensity = parseFloat(x[1]);
