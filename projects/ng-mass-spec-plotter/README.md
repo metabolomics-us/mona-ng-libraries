@@ -10,7 +10,7 @@ This library was generated with [Angular CLI](https://github.com/angular/angular
 npm install @wcmc/ng-mass-spec-plotter --save
 ```
 
-## Usage
+## Flot Plotter Usage
 
 ### Import the library
 ```typescript
@@ -49,3 +49,31 @@ The `lib-ng-mass-spec-plotter` component must use a unique id and be contained w
 ```
 
 The component also accepts a `miniPlot` attribute to create a small, square, unlabeled figure for previews.
+
+
+## SpeckTackle Usage
+
+[SpeckTackle](https://bitbucket.org/sbeisken/specktackle/) is a D3.js based spectrum viewer that supports heads-to-tails spectral comparisons.
+
+### Install dependencies
+
+```shell
+npm install bitbucket:sbeisken/specktackle --save
+
+```
+
+### Add required scripts to the angular configuration
+In `angular.json` under `architect.build.options` within your project definition, add the following scripts
+
+```json
+"styles": [
+  "./node_modules/st/css/st.css"
+],
+"scripts": [
+  "./node_modules/st/st.js",
+  "./node_modules/st/libs/jquery/jquery.js",
+  "./node_modules/st/libs/d3/d3.js",
+]
+```
+
+If any issues arise, place `st.js` is included near the beginning of the list.
