@@ -1,12 +1,11 @@
 import { NgModule } from '@angular/core';
 import { NgMassSpecPlotterComponent } from './ng-mass-spec-plotter.component';
-import { NgSpecktackleComponent } from './ng-specktackle.component';
 import { SpectackleDirective } from './spectackle.directive';
 
 @NgModule({
-  declarations: [NgMassSpecPlotterComponent, NgSpecktackleComponent, SpectackleDirective],
+  declarations: [NgMassSpecPlotterComponent, SpectackleDirective],
   imports: [
   ],
-  exports: [NgMassSpecPlotterComponent, NgSpecktackleComponent, SpectackleDirective]
+  exports: [NgMassSpecPlotterComponent]
 })
 export class NgMassSpecPlotterModule { }
