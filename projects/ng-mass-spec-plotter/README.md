@@ -77,3 +77,23 @@ In `angular.json` under `architect.build.options` within your project definition
 ```
 
 If any issues arise, place `st.js` is included near the beginning of the list.
+
+### Use the SpeckTackle directive in your module
+The `specktackleViewer` directive must use a unique id and must have a unique width and height:
+
+```html
+<div specktackleViewer
+  spectrum="100:50 105:100 125:25"
+  id="uniqueId"
+  style="width: 100%; height: 400px"></div>
+```
+
+To plot a heads-to-tails figure:
+
+```html
+<div specktackleViewer
+  spectrum="100:50 105:100 125:25"
+  librarySpectrum="100:12 121:100 150:40"
+  id="uniqueId"
+  style="width: 100%; height: 400px"></div>
+```
