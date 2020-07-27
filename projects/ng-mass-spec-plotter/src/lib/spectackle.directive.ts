@@ -16,9 +16,6 @@ export class SpectackleDirective implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
 
-    console.log(this.spectrum);
-    console.log(this.librarySpectrum);
-
     if (this.spectrum) {
       // parse spectrum
       const data = [{peaks: this.parseSpectrum(this.spectrum)}];
@@ -26,8 +23,6 @@ export class SpectackleDirective implements OnChanges {
       if (this.librarySpectrum) {
         data.push({peaks: this.parseSpectrum(this.librarySpectrum, true)});
       }
-
-      console.log(data);
 
       const mzMax = Math.max(...data[data.length - 1].peaks.map(x => x.mz));
 

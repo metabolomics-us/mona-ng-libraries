@@ -6,6 +6,6 @@ import { SpectackleDirective } from './spectackle.directive';
   declarations: [NgMassSpecPlotterComponent, SpectackleDirective],
   imports: [
   ],
-  exports: [NgMassSpecPlotterComponent]
+  exports: [NgMassSpecPlotterComponent, SpectackleDirective]
 })
 export class NgMassSpecPlotterModule { }
