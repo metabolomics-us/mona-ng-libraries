@@ -12,6 +12,10 @@ export class SpectackleDirective implements OnChanges {
   @Input() spectrum: string;
   @Input() librarySpectrum: string;
 
+  @Input() title: string;
+  @Input() xLabel: string;
+  @Input() yLabel: string;
+
   constructor(private el: ElementRef) {}
 
   ngOnChanges(changes: SimpleChanges) {
@@ -33,12 +37,15 @@ export class SpectackleDirective implements OnChanges {
 
       container.empty();
 
-      const chart = st.chart
+      var chart = st.chart
           .ms()
-          .xlabel('m/z')
-          .ylabel('Abundance')
-          .labels(true)
-          .legend(false);
+          .xlabel(this.xLabel || 'm/z')
+          .ylabel(this.yLabel || 'Abundance')
+          .labels(true);
+
+      if (this.title) {
+        chart = chart.title(this.title);
+      }
 
       chart.render('#' + containerId);
 
