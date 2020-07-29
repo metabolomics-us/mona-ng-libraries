@@ -12,6 +12,9 @@ export class SpectackleDirective implements OnChanges {
   @Input() spectrum: string;
   @Input() librarySpectrum: string;
 
+  @Input() spectrumLabel: string;
+  @Input() libraryLabel: string;
+
   @Input() title: string;
   @Input() xLabel: string;
   @Input() yLabel: string;
@@ -22,10 +25,10 @@ export class SpectackleDirective implements OnChanges {
 
     if (this.spectrum) {
       // parse spectrum
-      const data = [{peaks: this.parseSpectrum(this.spectrum)}];
+      const data = [this.parseSpectrum(this.spectrum, this.spectrumLabel)];
 
       if (this.librarySpectrum) {
-        data.push({peaks: this.parseSpectrum(this.librarySpectrum, true)});
+        data.push(this.parseSpectrum(this.librarySpectrum, this.libraryLabel, true));
       }
 
       const mzMax = Math.max(...data[data.length - 1].peaks.map(x => x.mz));
@@ -37,7 +40,7 @@ export class SpectackleDirective implements OnChanges {
 
       container.empty();
 
-      var chart = st.chart
+      let chart = st.chart
           .ms()
           .xlabel(this.xLabel || 'm/z')
           .ylabel(this.yLabel || 'Abundance')
@@ -64,17 +67,21 @@ export class SpectackleDirective implements OnChanges {
     }
   }
 
-  private parseSpectrum(spectrum: string, invert: boolean = false) {
-    const peaks = [];
+  private parseSpectrum(spectrum: string, spectrumId: string, invert: boolean = false) {
+    const s: any = {peaks: []};
 
     spectrum.split(' ').forEach((ion: string) => {
       const x = ion.split(':');
       const mz = parseFloat(x[0]);
       const intensity = parseFloat(x[1]);
 
-      peaks.push({mz, intensity: invert ? -intensity : intensity});
+      s.peaks.push({mz, intensity: invert ? -intensity : intensity});
     });
 
-    return peaks;
+    if (spectrumId) {
+      s.spectrumId = spectrumId;
+    }
+
+    return s;
   }
 }
