@@ -41,14 +41,21 @@ export class SpectackleDirective implements OnChanges {
 
       container.empty();
 
+      // set default chart with axis labels
       let chart = st.chart
           .ms()
           .xlabel(this.xLabel || 'm/z')
           .ylabel(this.yLabel || 'Abundance')
           .labels(true);
 
+      // add title if provided
       if (this.title) {
         chart = chart.title(this.title);
+      }
+
+      // add legend if spectrum labels are provided
+      if (this.spectrumLabel || this.libraryLabel) {
+        chart = chart.legend(true);
       }
 
       chart.render('#' + containerId);
