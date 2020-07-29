@@ -11,6 +11,7 @@ export class SpectackleDirective implements OnChanges {
 
   @Input() spectrum: string;
   @Input() librarySpectrum: string;
+  @Input() normalize: number;
 
   @Input() spectrumLabel: string;
   @Input() libraryLabel: string;
@@ -69,15 +70,27 @@ export class SpectackleDirective implements OnChanges {
 
   private parseSpectrum(spectrum: string, spectrumId: string, invert: boolean = false) {
     const s: any = {peaks: []};
+    let maxIntensity = 0;
 
+    // parse spectrum string and compute maximum intensity
     spectrum.split(' ').forEach((ion: string) => {
       const x = ion.split(':');
       const mz = parseFloat(x[0]);
       const intensity = parseFloat(x[1]);
 
+      maxIntensity = Math.max(intensity, maxIntensity);
+
+      // use negative intensities for reverse/library spectrum
       s.peaks.push({mz, intensity: invert ? -intensity : intensity});
     });
 
+    // normalize spectrum if requested or if plotting a heads-to-tails figure
+    if (this.normalize || this.librarySpectrum) {
+      const normalizationValue = this.normalize ? this.normalize : 100;
+      s.peaks = s.peaks.map(x => ({mz: x.mz, intensity: normalizationValue * x.intensity / maxIntensity}));
+    }
+
+    // add the spectrum id as a label if provided
     if (spectrumId) {
       s.spectrumId = spectrumId;
     }

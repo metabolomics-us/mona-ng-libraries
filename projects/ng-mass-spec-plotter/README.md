@@ -99,6 +99,7 @@ To plot a heads-to-tails figure:
 ```
 
 Additional optional attributes include:
+* `normalize`: numerical value to which to normalize spectra (default: 100 for heads-to-tails plots, no scaling for single spectrum)
 * `title`: plot title (no title by default)
 * `xLabel`: x-axis label (default: m/z)
 * `yLabel`: y-axis label (default: Abundance)
