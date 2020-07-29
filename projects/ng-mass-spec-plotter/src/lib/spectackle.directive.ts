@@ -68,6 +68,7 @@ export class SpectackleDirective implements OnChanges {
           .y('peaks.intensity');
 
       // display labels by default
+      d3.select('#st-options').style('display', 'none');
       d3.select('#st-label').style('stroke', '#333333');
 
       chart.load(handle);
