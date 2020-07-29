@@ -97,3 +97,10 @@ To plot a heads-to-tails figure:
   id="uniqueId"
   style="width: 100%; height: 400px"></div>
 ```
+
+Additional optional attributes include:
+* `title`: plot title (no title by default)
+* `xLabel`: x-axis label (default: m/z)
+* `yLabel`: y-axis label (default: Abundance)
+* `spectrumLabel`: a label for the primary spectrum for the legend
+* `libraryLabel`: a label for the reverse/library spectrum for the legend
