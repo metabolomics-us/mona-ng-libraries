@@ -1,5 +1,5 @@
 {
-  "name": "mona-web",
+  "name": "mona-ng-libraries",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
