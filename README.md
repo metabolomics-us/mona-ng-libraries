@@ -1,27 +1,21 @@
-# MonaWeb
+# MoNA Angular Libraries
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.0.
+This project was contains several shared Angular libraries to be used in MoNA and related projects.  It was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.0.
 
-## Development server
+### Build and Deployment
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Each library can be built individually.  For example, `ng-mona-client` can be built using:
 
-## Code scaffolding
+`ng build ng-mona-client`
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+To deploy a new version of the library, first ensure you are authenticated using `npm login`.  Then, bump the package version in `projects/ng-mona-client/package.json`.  Next, build the library using the production environment:
 
-## Build
+`ng build ng-mona-client --prod`
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+Finally, move to the build directory and publish the package:
 
-## Running unit tests
+```
+cd dist/ng-mona-client
+npm publish --access public
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
