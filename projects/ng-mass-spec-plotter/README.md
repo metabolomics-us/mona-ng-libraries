@@ -1,24 +1,107 @@
-# NgMassSpecPlotter
+# Angular Mass Spectrum Plotter
+
+A mass spectrum visualization component for Angular.
 
 This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.0.
 
-## Code scaffolding
+## Installation
 
-Run `ng generate component component-name --project ng-mass-spec-plotter` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project ng-mass-spec-plotter`.
-> Note: Don't forget to add `--project ng-mass-spec-plotter` or else it will be added to the default project in your `angular.json` file. 
+```shell
+npm install @wcmc/ng-mass-spec-plotter --save
+```
 
-## Build
+## Flot Plotter Usage
 
-Run `ng build ng-mass-spec-plotter` to build the project. The build artifacts will be stored in the `dist/` directory.
+### Import the library
+```typescript
+import { NgMassSpecPlotterModule } from '@wcmc/ng-mass-spec-plotter';
+ 
+@NgModule({
+ // ...
+ imports: [
+   // ...
+   NgMassSpecPlotterModule
+ ]
+})
+```
 
-## Publishing
+### Add required scripts to the angular configuration
+In `angular.json` under `architect.build.options` within your project definition, add the following scripts
 
-After building your library with `ng build ng-mass-spec-plotter`, go to the dist folder `cd dist/ng-mass-spec-plotter` and run `npm publish`.
+```json
+"scripts": [
+  "./node_modules/flot/jquery.js",
+  "./node_modules/flot/jquery.flot.js",
+  "./node_modules/flot/jquery.flot.resize.js",
+  "./node_modules/flot/jquery.flot.selection.js"
+]
+```
 
-## Running unit tests
+### Use the custom component in your module
+The `lib-ng-mass-spec-plotter` component must use a unique id and be contained within an element with fixed height:
 
-Run `ng test ng-mass-spec-plotter` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```html
+<div style="width: 100%; height: 400px">
+  <lib-ng-mass-spec-plotter
+    spectrum="100:50 105:100 125:25"
+    id="uniqueId"></lib-ng-mass-spec-plotter>
+</div>
+```
 
-## Further help
+The component also accepts a `miniPlot` attribute to create a small, square, unlabeled figure for previews.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+## SpeckTackle Usage
+
+[SpeckTackle](https://bitbucket.org/sbeisken/specktackle/) is a D3.js based spectrum viewer that supports heads-to-tails spectral comparisons.
+
+### Install dependencies
+
+```shell
+npm install bitbucket:sbeisken/specktackle --save
+
+```
+
+### Add required scripts to the angular configuration
+In `angular.json` under `architect.build.options` within your project definition, add the following scripts
+
+```json
+"styles": [
+  "./node_modules/st/css/st.css"
+],
+"scripts": [
+  "./node_modules/st/st.js",
+  "./node_modules/st/libs/jquery/jquery.js",
+  "./node_modules/st/libs/d3/d3.js",
+]
+```
+
+If any issues arise, place `st.js` is included near the beginning of the list.
+
+### Use the SpeckTackle directive in your module
+The `specktackleViewer` directive must use a unique id and must have a unique width and height:
+
+```html
+<div specktackleViewer
+  spectrum="100:50 105:100 125:25"
+  id="uniqueId"
+  style="width: 100%; height: 400px"></div>
+```
+
+To plot a heads-to-tails figure:
+
+```html
+<div specktackleViewer
+  spectrum="100:50 105:100 125:25"
+  librarySpectrum="100:12 121:100 150:40"
+  id="uniqueId"
+  style="width: 100%; height: 400px"></div>
+```
+
+Additional optional attributes include:
+* `normalize`: numerical value to which to normalize spectra (default: 100 for heads-to-tails plots, no scaling for single spectrum)
+* `title`: plot title (no title by default)
+* `xLabel`: x-axis label (default: m/z)
+* `yLabel`: y-axis label (default: Abundance)
+* `spectrumLabel`: a label for the primary spectrum for the legend
+* `libraryLabel`: a label for the reverse/library spectrum for the legend

@@ -1,6 +1,9 @@
 {
-  "name": "ng-chemdoodle",
-  "version": "0.0.1",
+  "name": "@wcmc/ng-chemdoodle",
+  "description": "A chemical structure visualization component for Angular",
+  "version": "0.1.0",
+  "author": "Sajjan Singh Mehta",
+  "license": "LGPL-3.0",
   "peerDependencies": {
     "@angular/common": "^9.1.0",
     "@angular/core": "^9.1.0",
