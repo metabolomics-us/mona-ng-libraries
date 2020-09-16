@@ -43,3 +43,54 @@ export class AppComponent {
   // ..
 }
 ```
+
+### Perform a similarity search
+```typescript
+import { SimilarityService, SimilaritySearchRequest, SimilaritySearchResult } from '@wcmc/ng-mona-client';
+
+@Component({
+  // ..
+})
+export class AppComponent {
+
+  constructor(private similarityService: SimilarityService) {
+
+    // base similarity request consisting only of a spectrum string
+    // spectrum is the only required property, all following parameters are optional
+    const request = new SimilaritySearchRequest('100:1 125:25 200:100');
+
+    // add a minimum similarity threshold from 0 to 1 (a value of 0.7 is equivilent ot a score of 700)
+    request.minSimilarity = 0.7;
+
+    // filter by precursor m/z
+    // only one parameter between precursorToleranceDa and precursorTolerancePPM is required
+    // if both a provided precursorToleranceDa is preferred
+    request.precursorMZ = 200;
+    request.precursorToleranceDa = 0.05;
+    request.precursorTolerancePPM = 10;
+
+    // a list of required tags that each hit must contain all of
+    request.requiredTags = ['LC-MS'];
+
+    // a list of tags that each hit much match at least one of
+    request.filterTags = ['MassBank', 'GNPS', 'HMDB'];
+
+    // option to remove the precursor m/z from the similarity calculations
+    // is false by default, and only applies if precursorMZ is also specified
+    request.removePrecursorIon = true;
+
+    // option to specify the similarity search algorithm to use, if not provided the default algorithm is used
+    request.algorithm = 'COSINE';
+
+
+    // perform search, limiting the results to the top 10 hits
+    service.getSimilarityResults(request, 10)
+      .subscribe((hits: SimilaritySearchResult[]) => {
+        // return an array of SimilaritySearchResult objects which have two properties:
+        //   - hit: matching spectrum object
+        //   - score: similarity score of the query to the match
+      });
+    );
+  // ..
+}
+```
