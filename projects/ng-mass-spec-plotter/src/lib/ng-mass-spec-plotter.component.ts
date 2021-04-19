@@ -12,6 +12,8 @@ export class NgMassSpecPlotterComponent implements OnInit, OnChanges {
   @Input() spectrum: string;
   @Input() miniPlot: boolean;
 
+  @Input() pmzMax: number;
+
   parsedData: any;
   plot;
   placeholder;
@@ -33,7 +35,12 @@ export class NgMassSpecPlotterComponent implements OnInit, OnChanges {
     const annotations = this.parsedData.annotations;
 
     // Compute plot limits
-    const mzMax = Math.max.apply(Math, data.map(x => x[0]));
+    let mzMax: number;
+    if (this.pmzMax) {
+      mzMax = this.pmzMax;
+    } else {
+      mzMax = Math.max.apply(Math, data.map(x => x[0]));
+    }
     const intensityMax = Math.max.apply(Math, data.map(x => x[1]));
 
     // Base options
@@ -119,7 +126,7 @@ export class NgMassSpecPlotterComponent implements OnInit, OnChanges {
       });
 
       // Add button to reset selection zooming
-      $('<div><i class="fa fa-arrows-alt fa-2x"></i></div>').css({
+      $('<div><i class="fas fa-arrows-alt fa-2x"></i></div>').css({
         position: 'absolute',
         top: '10px',
         right: '10px',
@@ -203,7 +210,12 @@ export class NgMassSpecPlotterComponent implements OnInit, OnChanges {
     const plotData = this.parsedData.data.map(x => ({data: [[x[0], 0], x], lines: {show: true, lineWidth: 0.75}}));
     this.plot.setData(plotData);
 
-    const mzMax = Math.max.apply(Math, this.parsedData.data.map(x => x[0]));
+    let mzMax: number;
+    if (this.pmzMax) {
+      mzMax = this.pmzMax;
+    } else {
+      mzMax = Math.max.apply(Math, this.parsedData.data.map(x => x[0]));
+    }
     const intensityMax = Math.max.apply(Math, this.parsedData.data.map(x => x[1]));
 
     // Reset x-axis range
