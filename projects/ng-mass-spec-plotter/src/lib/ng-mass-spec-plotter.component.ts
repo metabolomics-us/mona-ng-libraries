@@ -126,7 +126,7 @@ export class NgMassSpecPlotterComponent implements OnInit, OnChanges {
       });
 
       // Add button to reset selection zooming
-      $('<div><i class="fas fa-arrows-alt fa-2x"></i></div>').css({
+      $('<div><i class="fa fa-arrows-alt fa-2x"></i></div>').css({
         position: 'absolute',
         top: '10px',
         right: '10px',
