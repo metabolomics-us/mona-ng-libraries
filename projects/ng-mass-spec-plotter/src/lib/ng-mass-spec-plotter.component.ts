@@ -24,11 +24,16 @@ export class NgMassSpecPlotterComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
 
-    // Watch the data source for changes to spectrum
-    if (changes.hasOwnProperty('spectrum') && typeof changes.spectrum !== 'undefined' && typeof this.plot !== 'undefined') {
-      this.parsedData = this.parseData(this.spectrum);
-      this.redrawPlot();
-    }
+    // Watch the data source for changes to spectrum or pmzMax
+    if (typeof this.plot !== 'undefined') {
+      if (changes.hasOwnProperty('spectrum') && typeof changes.spectrum !== 'undefined') {
+        this.parsedData = this.parseData(this.spectrum);
+        this.redrawPlot();
+      } else if (changes.hasOwnProperty('pmzMax') && typeof changes.pmzMax !== 'undefined' && this.spectrum) {
+        // No need to parse data again if adjusting x-axis
+        this.redrawPlot();
+      }
+    }    
   }
 
   ngOnInit(): void {
