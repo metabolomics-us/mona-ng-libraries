@@ -12,7 +12,9 @@ export class NgMassSpecPlotterComponent implements OnInit, OnChanges {
   @Input() spectrum: string;
   @Input() miniPlot: boolean;
 
+  // Added 2021/04/20
   @Input() pmzMax: number;
+  @Input() truncate: boolean;
 
   parsedData: any;
   plot;
@@ -30,18 +32,27 @@ export class NgMassSpecPlotterComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    this.parsedData = this.parseData(this.spectrum);
-    let data = this.parsedData.data;
-    const annotations = this.parsedData.annotations;
+    this.initializePlot();
+  }
 
-    // Compute plot limits
+  computePlotLimits(data: any[]) {
     let mzMax: number;
-    if (this.pmzMax) {
+    if (this.pmzMax !== undefined) {
       mzMax = this.pmzMax;
     } else {
       mzMax = Math.max.apply(Math, data.map(x => x[0]));
     }
     const intensityMax = Math.max.apply(Math, data.map(x => x[1]));
+    return [mzMax, intensityMax];
+  }
+
+  initializePlot() {
+    this.parsedData = this.parseData(this.spectrum);
+    let data = this.parsedData.data;
+    const annotations = this.parsedData.annotations;
+
+    // Compute plot limits
+    let [mzMax, intensityMax] = this.computePlotLimits(data);
 
     // Base options
     const options: any = {
@@ -210,13 +221,8 @@ export class NgMassSpecPlotterComponent implements OnInit, OnChanges {
     const plotData = this.parsedData.data.map(x => ({data: [[x[0], 0], x], lines: {show: true, lineWidth: 0.75}}));
     this.plot.setData(plotData);
 
-    let mzMax: number;
-    if (this.pmzMax) {
-      mzMax = this.pmzMax;
-    } else {
-      mzMax = Math.max.apply(Math, this.parsedData.data.map(x => x[0]));
-    }
-    const intensityMax = Math.max.apply(Math, this.parsedData.data.map(x => x[1]));
+    // Compute plot limits
+    let [mzMax, intensityMax] = this.computePlotLimits(this.parsedData.data);
 
     // Reset x-axis range
     $.each(this.plot.getXAxes(), (_, axis) => {
@@ -347,6 +353,8 @@ export class NgMassSpecPlotterComponent implements OnInit, OnChanges {
 
     // Sort data by m/z
     data.sort((a, b) => a[0] - b[0]);
+
+    data = this.truncate ? data.map(x => [Number(x[0].toFixed(4)), Number(x[1].toFixed(2))]) : data;
 
     // Return parsed data
     return {data, annotations};
