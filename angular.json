@@ -133,7 +133,7 @@
           }
         }
       }
-    },
+    }
   },
   "defaultProject": "ng-mona-client"
 }
