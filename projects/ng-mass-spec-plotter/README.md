@@ -48,8 +48,10 @@ The `lib-ng-mass-spec-plotter` component must use a unique id and be contained w
 </div>
 ```
 
-The component also accepts a `miniPlot` attribute to create a small, square, unlabeled figure for previews.
-
+Additional optional attributes include:
+* `miniPlot`: Creates a small, square, unlabeled figure for previews.
+* `pmzMax`: Sets the maximum value of the x-axis. If undefined, @wcmc/ng-mass-spec-plotter determines it automatically.
+* `truncate`: Sets the number label of each peak to four decimal places.
 
 ## SpeckTackle Usage
 
