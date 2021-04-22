@@ -1,16 +1,16 @@
 {
   "name": "@wcmc/ng-mass-spec-plotter",
-  "version": "0.2.3",
+  "version": "0.3.1",
   "description": "A mass spectrum visualization component for Angular",
   "author": "Sajjan Singh Mehta",
   "license": "LGPL-3.0",
   "dependencies": {
     "flot": "^0.8.3",
-    "st": "bitbucket:sbeisken/specktackle"
+    "st": "bitbucket:sbeisken/specktackle",
+    "tslib": "^2.0.0"
   },
   "peerDependencies": {
-    "@angular/common": "^9.1.0",
-    "@angular/core": "^9.1.0",
-    "tslib": "^1.10.0"
+    "@angular/common": "^10.1.0",
+    "@angular/core": "^10.1.0"
   }
 }

@@ -12,6 +12,10 @@ export class NgMassSpecPlotterComponent implements OnInit, OnChanges {
   @Input() spectrum: string;
   @Input() miniPlot: boolean;
 
+  // Added 2021/04/20
+  @Input() pmzMax: number;
+  @Input() truncate: boolean;
+
   parsedData: any;
   plot;
   placeholder;
@@ -20,21 +24,40 @@ export class NgMassSpecPlotterComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
 
-    // Watch the data source for changes to spectrum
-    if (changes.hasOwnProperty('spectrum') && typeof changes.spectrum !== 'undefined' && typeof this.plot !== 'undefined') {
-      this.parsedData = this.parseData(this.spectrum);
-      this.redrawPlot();
-    }
+    // Watch the data source for changes to spectrum or pmzMax
+    if (typeof this.plot !== 'undefined') {
+      if (changes.hasOwnProperty('spectrum') && typeof changes.spectrum !== 'undefined') {
+        this.parsedData = this.parseData(this.spectrum);
+        this.redrawPlot();
+      } else if (changes.hasOwnProperty('pmzMax') && typeof changes.pmzMax !== 'undefined' && this.spectrum) {
+        // No need to parse data again if adjusting x-axis
+        this.redrawPlot();
+      }
+    }    
   }
 
   ngOnInit(): void {
+    this.initializePlot();
+  }
+
+  computePlotLimits(data: any[]) {
+    let mzMax: number;
+    if (this.pmzMax !== undefined) {
+      mzMax = this.pmzMax;
+    } else {
+      mzMax = Math.max.apply(Math, data.map(x => x[0]));
+    }
+    const intensityMax = Math.max.apply(Math, data.map(x => x[1]));
+    return [mzMax, intensityMax];
+  }
+
+  initializePlot() {
     this.parsedData = this.parseData(this.spectrum);
     let data = this.parsedData.data;
     const annotations = this.parsedData.annotations;
 
     // Compute plot limits
-    const mzMax = Math.max.apply(Math, data.map(x => x[0]));
-    const intensityMax = Math.max.apply(Math, data.map(x => x[1]));
+    let [mzMax, intensityMax] = this.computePlotLimits(data);
 
     // Base options
     const options: any = {
@@ -203,8 +226,8 @@ export class NgMassSpecPlotterComponent implements OnInit, OnChanges {
     const plotData = this.parsedData.data.map(x => ({data: [[x[0], 0], x], lines: {show: true, lineWidth: 0.75}}));
     this.plot.setData(plotData);
 
-    const mzMax = Math.max.apply(Math, this.parsedData.data.map(x => x[0]));
-    const intensityMax = Math.max.apply(Math, this.parsedData.data.map(x => x[1]));
+    // Compute plot limits
+    let [mzMax, intensityMax] = this.computePlotLimits(this.parsedData.data);
 
     // Reset x-axis range
     $.each(this.plot.getXAxes(), (_, axis) => {
@@ -335,6 +358,8 @@ export class NgMassSpecPlotterComponent implements OnInit, OnChanges {
 
     // Sort data by m/z
     data.sort((a, b) => a[0] - b[0]);
+
+    data = this.truncate ? data.map(x => [Number(x[0].toFixed(4)), Number(x[1].toFixed(2))]) : data;
 
     // Return parsed data
     return {data, annotations};
