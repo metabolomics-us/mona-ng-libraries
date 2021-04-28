@@ -3,7 +3,7 @@
 # https://web.chemdoodle.com/installation/download
 
 # ChemDoodle Web Components version
-version="9.1.0"
+version="9.2.0"
 
 # download and extract library
 wget "https://web.chemdoodle.com/downloads/ChemDoodleWeb-${version}.zip"

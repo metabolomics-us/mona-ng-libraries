@@ -1,5 +1,5 @@
 import { HttpClientModule, HttpErrorResponse } from '@angular/common/http';
-import { TestBed, async } from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 
 import { Commons } from '../commons';
 import { SimilarityService } from './similarity.service';
@@ -20,7 +20,7 @@ describe('SimilarityService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should perform a simple similarity search request', async(() => {
+  it('should perform a simple similarity search request', waitForAsync(() => {
     const request = new SimilaritySearchRequest('100:1');
 
     service.getSimilarityResults(request, 1).subscribe(

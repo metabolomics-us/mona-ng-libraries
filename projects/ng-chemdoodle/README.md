@@ -17,7 +17,7 @@ npm install @wcmc/ng-chemdoodle --save
 # https://web.chemdoodle.com/installation/download
 
 # latest ChemDoodle Web Components version at the time of this relase
-version="9.1.0"
+version="9.2.0"
 
 # create lib directory
 mkdir -p lib/ChemDoodleWeb
