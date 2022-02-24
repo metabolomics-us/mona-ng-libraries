@@ -16,6 +16,9 @@ export class NgMassSpecPlotterComponent implements OnInit, OnChanges {
   @Input() pmzMax: number;
   @Input() truncate: boolean;
 
+  // Added 2022/02/24
+  @Input() normalize: number;
+
   parsedData: any;
   plot;
   placeholder;
@@ -358,6 +361,13 @@ export class NgMassSpecPlotterComponent implements OnInit, OnChanges {
 
     // Sort data by m/z
     data.sort((a, b) => a[0] - b[0]);
+
+    if (this.normalize) {
+      console.log('normalizing...');
+      const normalizationValue = this.normalize ? this.normalize : 100;
+      let max = Math.max( ...Array.from(data, x => x[1]) );
+      data = data.map(x => [x[0], (x[1] / max) * normalizationValue]);
+    }
 
     data = this.truncate ? data.map(x => [Number(x[0].toFixed(4)), Number(x[1].toFixed(2))]) : data;
 

@@ -52,6 +52,7 @@ Additional optional attributes include:
 * `miniPlot`: Creates a small, square, unlabeled figure for previews.
 * `pmzMax`: Sets the maximum value of the x-axis. If undefined, @wcmc/ng-mass-spec-plotter determines it automatically.
 * `truncate`: Sets the number label of each peak to four decimal places.
+* `normalize`: numerical value to which to normalize spectra.
 
 ## SpeckTackle Usage
 
