@@ -108,3 +108,4 @@ Additional optional attributes include:
 * `yLabel`: y-axis label (default: Abundance)
 * `spectrumLabel`: a label for the primary spectrum for the legend
 * `libraryLabel`: a label for the reverse/library spectrum for the legend
+* `pmzMax`: Sets the maximum value of the x-axis. If undefined, @wcmc/ng-mass-spec-plotter determines it automatically.
