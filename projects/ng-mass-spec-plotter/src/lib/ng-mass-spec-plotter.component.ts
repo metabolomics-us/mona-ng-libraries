@@ -363,7 +363,7 @@ export class NgMassSpecPlotterComponent implements OnInit, OnChanges {
     data.sort((a, b) => a[0] - b[0]);
 
     if (this.normalize) {
-      console.log('normalizing...');
+      // console.log('normalizing...');
       const normalizationValue = this.normalize ? this.normalize : 100;
       let max = Math.max( ...Array.from(data, x => x[1]) );
       data = data.map(x => [x[0], (x[1] / max) * normalizationValue]);

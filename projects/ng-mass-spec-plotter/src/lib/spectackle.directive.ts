@@ -20,6 +20,8 @@ export class SpectackleDirective implements OnChanges {
   @Input() xLabel: string;
   @Input() yLabel: string;
 
+  @Input() pmzMax: number;
+
   constructor(private el: ElementRef) {}
 
   ngOnChanges(changes: SimpleChanges) {
@@ -32,8 +34,9 @@ export class SpectackleDirective implements OnChanges {
         data.push(this.parseSpectrum(this.librarySpectrum, this.libraryLabel, true));
       }
 
-      const mzMax = Math.max(...data[data.length - 1].peaks.map(x => x.mz));
-
+      let mzMax: number;
+      if (this.pmzMax) mzMax = this.pmzMax;
+      else mzMax = 1.1 * (Math.max(...data[data.length - 1].peaks.map(x => x.mz)));
 
       // generate chart
       const container = $(this.el.nativeElement);
@@ -62,7 +65,7 @@ export class SpectackleDirective implements OnChanges {
 
       const handle = st.data
           .set()
-          .xlimits([0, 1.1 * mzMax])
+          .xlimits([0, mzMax])
           .title('spectrumId')
           .x('peaks.mz')
           .y('peaks.intensity');
