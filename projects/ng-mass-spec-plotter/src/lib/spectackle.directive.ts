@@ -36,7 +36,13 @@ export class SpectackleDirective implements OnChanges {
 
       let mzMax: number;
       if (this.pmzMax) mzMax = this.pmzMax;
-      else mzMax = 1.1 * (Math.max(...data[data.length - 1].peaks.map(x => x.mz)));
+      else {
+        const maxValues: number[] = [];
+        data.forEach(d => {
+          maxValues.push(Math.max(...d.peaks.map(x => x.mz)));
+        })
+        mzMax = 1.1 * Math.max(...maxValues);
+      }
 
       // generate chart
       const container = $(this.el.nativeElement);
