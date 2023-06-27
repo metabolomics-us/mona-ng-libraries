@@ -10,7 +10,7 @@
       "prefix": "lib",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
+          "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
             "tsConfig": "projects/ng-mona-client/tsconfig.lib.json",
             "project": "projects/ng-mona-client/ng-package.json"
@@ -55,7 +55,7 @@
       },
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
+          "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
             "tsConfig": "projects/ng-chemdoodle/tsconfig.lib.json",
             "project": "projects/ng-chemdoodle/ng-package.json"
@@ -101,7 +101,7 @@
       "prefix": "lib",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
+          "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
             "tsConfig": "projects/ng-mass-spec-plotter/tsconfig.lib.json",
             "project": "projects/ng-mass-spec-plotter/ng-package.json"
