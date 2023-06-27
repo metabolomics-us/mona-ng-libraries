@@ -1,15 +1,23 @@
 {
   "name": "@wcmc/ng-mona-client",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "An Angular client for the MoNA (MassBank of North America) REST API",
-  "author": "Sajjan Singh Mehta",
+  "contributors": [
+    {
+      "name": "Daniel Rundle",
+      "email": "derundle@ucdavis.edu"
+    },
+    {
+      "name": "Sajjan Singh Mehta"
+    }
+  ],
   "license": "LGPL-3.0",
   "dependencies": {
     "bencodec": "^2.4.0",
     "tslib": "^2.0.0"
   },
   "peerDependencies": {
-    "@angular/common": "^10.0.0",
-    "@angular/core": "^10.0.0"
+    "@angular/common": ">=10.0.0",
+    "@angular/core": ">=10.0.0"
   }
 }
