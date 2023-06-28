@@ -1,14 +1,22 @@
 {
   "name": "@wcmc/ng-chemdoodle",
   "description": "A chemical structure visualization component for Angular",
-  "version": "0.1.1",
-  "author": "Sajjan Singh Mehta",
+  "version": "0.1.2",
+  "contributors": [
+    {
+      "name": "Daniel Rundle",
+      "email": "derundle@ucdavis.edu"
+    },
+    {
+      "name": "Sajjan Singh Mehta"
+    }
+  ],
   "license": "LGPL-3.0",
   "dependencies": {
     "tslib": "^2.0.0"
   },
   "peerDependencies": {
-    "@angular/common": "^10.0.0",
-    "@angular/core": "^10.0.0"
+    "@angular/common": ">=10.0.0",
+    "@angular/core": ">=10.0.0"
   }
 }
