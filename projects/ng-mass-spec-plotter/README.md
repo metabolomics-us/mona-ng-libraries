@@ -56,12 +56,12 @@ Additional optional attributes include:
 
 ## SpeckTackle Usage
 
-[SpeckTackle](https://bitbucket.org/sbeisken/specktackle/) is a D3.js based spectrum viewer that supports heads-to-tails spectral comparisons.
+[SpeckTackle](https://bitbucket.org/sbeisken/specktackle/) is a D3.js based spectrum viewer that supports heads-to-tails spectral comparisons built by Stephan Beisken. This project uses a fork of the original SpeckTackle with slight modifications (https://bitbucket.org/derundle/specktackle-wcmc-fork).
 
 ### Install dependencies
 
 ```shell
-npm install bitbucket:sbeisken/specktackle --save
+npm install bitbucket:derundle/specktackle-wcmc-fork --save
 
 ```
 
