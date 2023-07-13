@@ -2,12 +2,9 @@
   "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
   "dest": "../../dist/ng-mona-client",
   "lib": {
-    "entryFile": "src/public-api.ts",
-    "umdModuleIds": {
-      "bencodec": "bencodec"
-    }
+    "entryFile": "src/public-api.ts"
   },
-  "whitelistedNonPeerDependencies": [
+  "allowedNonPeerDependencies": [
     "bencodec"
   ]
 }
