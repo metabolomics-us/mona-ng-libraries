@@ -4,7 +4,7 @@ This project was contains several shared Angular libraries to be used in MoNA an
 
 2021/04/21: ng-mass-spec-plotter has been upgraded to Angular v10.
 
-2023/07/14: In the process of updating all to Angular >= v15.
+2023/07/14: All packages work with Angular >= v15.
 
 ### Build and Deployment
 
