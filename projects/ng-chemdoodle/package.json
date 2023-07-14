@@ -1,7 +1,7 @@
 {
   "name": "@wcmc/ng-chemdoodle",
   "description": "A chemical structure visualization component for Angular",
-  "version": "0.1.2",
+  "version": "1.0.0",
   "contributors": [
     {
       "name": "Daniel Rundle",
@@ -16,7 +16,7 @@
     "tslib": "^2.0.0"
   },
   "peerDependencies": {
-    "@angular/common": ">=10.0.0",
-    "@angular/core": ">=10.0.0"
+    "@angular/common": ">=15.0.0",
+    "@angular/core": ">=15.0.0"
   }
 }

@@ -2,7 +2,7 @@
 
 A chemical structure visualization component for Angular.
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.0.
+This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.9.
 ## Installation
 
 ```shell
