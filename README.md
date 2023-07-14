@@ -12,9 +12,9 @@ Each library can be built individually.  For example, `ng-mona-client` can be bu
 
 `ng build ng-mona-client`
 
-To deploy a new version of the library, first ensure you are authenticated using `npm login`.  Then, bump the package version in `projects/ng-mona-client/package.json`.  Next, build the library using the production environment:
+This should built a production version by default.
 
-`ng build ng-mona-client --prod`
+To deploy a new version of the library, first ensure you are authenticated using `npm login`.  Then, bump the package version in `projects/ng-mona-client/package.json`.
 
 Finally, move to the build directory and publish the package:
 
