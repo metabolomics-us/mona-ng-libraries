@@ -4,15 +4,17 @@ This project was contains several shared Angular libraries to be used in MoNA an
 
 2021/04/21: ng-mass-spec-plotter has been upgraded to Angular v10.
 
+2023/07/14: All packages work with Angular >= v15.
+
 ### Build and Deployment
 
 Each library can be built individually.  For example, `ng-mona-client` can be built using:
 
 `ng build ng-mona-client`
 
-To deploy a new version of the library, first ensure you are authenticated using `npm login`.  Then, bump the package version in `projects/ng-mona-client/package.json`.  Next, build the library using the production environment:
+This should built a production version by default.
 
-`ng build ng-mona-client --prod`
+To deploy a new version of the library, first ensure you are authenticated using `npm login`.  Then, bump the package version in `projects/ng-mona-client/package.json`.
 
 Finally, move to the build directory and publish the package:
 

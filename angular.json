@@ -18,8 +18,10 @@
           "configurations": {
             "production": {
               "tsConfig": "projects/ng-mona-client/tsconfig.lib.prod.json"
-            }
-          }
+            },
+            "development": {}
+          },
+          "defaultConfiguration": "production"
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
@@ -27,18 +29,6 @@
             "main": "projects/ng-mona-client/src/test.ts",
             "tsConfig": "projects/ng-mona-client/tsconfig.spec.json",
             "karmaConfig": "projects/ng-mona-client/karma.conf.js"
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/ng-mona-client/tsconfig.lib.json",
-              "projects/ng-mona-client/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
           }
         }
       }
@@ -63,8 +53,10 @@
           "configurations": {
             "production": {
               "tsConfig": "projects/ng-chemdoodle/tsconfig.lib.prod.json"
-            }
-          }
+            },
+            "development": {}
+          },
+          "defaultConfiguration": "production"
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
@@ -77,18 +69,6 @@
             ],
             "scripts": [
               "./lib/ChemDoodleWeb/ChemDoodleWeb.js"
-            ]
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/ng-chemdoodle/tsconfig.lib.json",
-              "projects/ng-chemdoodle/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
             ]
           }
         }
@@ -109,8 +89,10 @@
           "configurations": {
             "production": {
               "tsConfig": "projects/ng-mass-spec-plotter/tsconfig.lib.prod.json"
-            }
-          }
+            },
+            "development": {}
+          },
+          "defaultConfiguration": "production"
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
@@ -119,21 +101,8 @@
             "tsConfig": "projects/ng-mass-spec-plotter/tsconfig.spec.json",
             "karmaConfig": "projects/ng-mass-spec-plotter/karma.conf.js"
           }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/ng-mass-spec-plotter/tsconfig.lib.json",
-              "projects/ng-mass-spec-plotter/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
         }
       }
     }
-  },
-  "defaultProject": "ng-mona-client"
+  }
 }

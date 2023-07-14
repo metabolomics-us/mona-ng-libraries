@@ -2,7 +2,7 @@
 
 An angular client for the MoNA (MassBank of North America) REST API.
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.0.
+This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.0.0.
 
 ## Installation
 

@@ -1,6 +1,6 @@
 {
   "name": "@wcmc/ng-mass-spec-plotter",
-  "version": "0.4.0",
+  "version": "1.0.0",
   "description": "A mass spectrum visualization component for Angular",
   "contributors": [
     {
@@ -18,7 +18,7 @@
     "tslib": "^2.0.0"
   },
   "peerDependencies": {
-    "@angular/common": ">=10.1.0",
-    "@angular/core": ">=10.1.0"
+    "@angular/common": ">=15.0.0",
+    "@angular/core": ">=15.0.0"
   }
 }
