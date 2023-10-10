@@ -31,6 +31,7 @@ export class NgMassSpecPlotterComponent implements OnInit, OnChanges {
   @Input() truncate: boolean;
   // Choose whether to normalize y-axis on scale of 0-100
   @Input() normalize: number;
+  @Input() sciY: boolean;
 
   // Emit limits of user selection
   @Output() selection = new EventEmitter<any>();
@@ -110,6 +111,11 @@ export class NgMassSpecPlotterComponent implements OnInit, OnChanges {
       // Set up plot limits
       options.xaxis = {min: mzMin, max: 1.05 * mzMax};
       options.yaxis = {min: 0, max: intensityMax};
+
+      // User defined Y axis ticks in scientific notation
+      if (this.sciY) {
+        options.yaxis.tickFormatter = (val: number) => val > 0 ? val.toExponential(2) : 0;
+      }
 
       // Set plot selection mode
       options.selection = {mode: 'x'};
