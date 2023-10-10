@@ -20,6 +20,7 @@ export class SpectackleDirective implements OnChanges {
   @Input() xLabel: string;
   @Input() yLabel: string;
 
+  @Input() pmzMin: number;
   @Input() pmzMax: number;
 
   constructor(private el: ElementRef) {}
@@ -34,6 +35,7 @@ export class SpectackleDirective implements OnChanges {
         data.push(this.parseSpectrum(this.librarySpectrum, this.libraryLabel, true));
       }
 
+      const mzMin = this.pmzMin ? this.pmzMin : 0;
       let mzMax: number;
       if (this.pmzMax) mzMax = this.pmzMax;
       else {
@@ -71,7 +73,7 @@ export class SpectackleDirective implements OnChanges {
 
       const handle = st.data
           .set()
-          .xlimits([0, mzMax])
+          .xlimits([mzMin, mzMax])
           .title('spectrumId')
           .x('peaks.mz')
           .y('peaks.intensity');

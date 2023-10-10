@@ -1,6 +1,18 @@
-import { Component, ElementRef, OnChanges, OnInit, Renderer2, SimpleChanges, Input } from '@angular/core';
+import { Component, ElementRef, OnChanges, OnInit, Renderer2, SimpleChanges, Input, Output, EventEmitter } from '@angular/core';
 
 declare var $: any;
+
+class ChartSelection {
+  xaxis: {
+    from: number;
+    to: number;
+  };
+  yaxis: {
+    from: number;
+    to: number;
+  };
+  maxPeak: number;
+}
 
 @Component({
   selector: 'lib-ng-mass-spec-plotter',
@@ -12,12 +24,17 @@ export class NgMassSpecPlotterComponent implements OnInit, OnChanges {
   @Input() spectrum: string;
   @Input() miniPlot: boolean;
 
-  // Added 2021/04/20
+  // Set min/max of x-axis
+  @Input() pmzMin: number;
   @Input() pmzMax: number;
+  // Sets m/z decimal places to 4, intensity decimal places to 2
   @Input() truncate: boolean;
-
-  // Added 2022/02/24
+  // Choose whether to normalize y-axis on scale of 0-100
   @Input() normalize: number;
+
+  // Emit limits of user selection
+  @Output() selection = new EventEmitter<any>();
+  @Output() redrawn = new EventEmitter<boolean>();
 
   parsedData: any;
   plot;
@@ -26,32 +43,27 @@ export class NgMassSpecPlotterComponent implements OnInit, OnChanges {
   constructor(private el: ElementRef, private renderer: Renderer2) { }
 
   ngOnChanges(changes: SimpleChanges) {
-
-    // Watch the data source for changes to spectrum or pmzMax
-    if (typeof this.plot !== 'undefined') {
-      if (changes.hasOwnProperty('spectrum') && typeof changes.spectrum !== 'undefined') {
+    // Watch the data source for changes to spectrum, pmzMin, or pmzMax
+    if (this.plot) {
+      if (changes.spectrum) {
         this.parsedData = this.parseData(this.spectrum);
         this.redrawPlot();
-      } else if (changes.hasOwnProperty('pmzMax') && typeof changes.pmzMax !== 'undefined' && this.spectrum) {
+      } else if (this.spectrum && (changes.pmzMax || changes.pmzMin)) {
         // No need to parse data again if adjusting x-axis
         this.redrawPlot();
       }
-    }    
+    } else if (this.spectrum) {
+      this.initializePlot();
+    }
   }
 
-  ngOnInit(): void {
-    this.initializePlot();
-  }
+  ngOnInit(): void {}
 
   computePlotLimits(data: any[]) {
-    let mzMax: number;
-    if (this.pmzMax !== undefined) {
-      mzMax = this.pmzMax;
-    } else {
-      mzMax = Math.max.apply(Math, data.map(x => x[0]));
-    }
+    const mzMin = this.pmzMin ? this.pmzMin : 0;
+    const mzMax = this.pmzMax ? this.pmzMax : Math.max.apply(Math, data.map(x => x[0]));
     const intensityMax = Math.max.apply(Math, data.map(x => x[1]));
-    return [mzMax, intensityMax];
+    return [mzMin, mzMax, intensityMax];
   }
 
   initializePlot() {
@@ -60,7 +72,7 @@ export class NgMassSpecPlotterComponent implements OnInit, OnChanges {
     const annotations = this.parsedData.annotations;
 
     // Compute plot limits
-    let [mzMax, intensityMax] = this.computePlotLimits(data);
+    let [mzMin, mzMax, intensityMax] = this.computePlotLimits(data);
 
     // Base options
     const options: any = {
@@ -86,7 +98,7 @@ export class NgMassSpecPlotterComponent implements OnInit, OnChanges {
     // Format plot if a thumbnail version is desired
     if (typeof this.miniPlot !== 'undefined') {
       // Remove tick labels and set plot limits
-      options.xaxis = {min: 0, max: Math.max(1.05 * mzMax, 500), ticks: false};
+      options.xaxis = {min: mzMin, max: Math.max(1.05 * mzMax, 500), ticks: false};
       options.yaxis = {min: 0, max: intensityMax, ticks: false};
 
       // Filter low intensity peaks
@@ -96,7 +108,7 @@ export class NgMassSpecPlotterComponent implements OnInit, OnChanges {
     // Otherwise, set up plot selection zoom and tooltips
     else {
       // Set up plot limits
-      options.xaxis = {min: 0, max: 1.05 * mzMax};
+      options.xaxis = {min: mzMin, max: 1.05 * mzMax};
       options.yaxis = {min: 0, max: intensityMax};
 
       // Set plot selection mode
@@ -142,6 +154,11 @@ export class NgMassSpecPlotterComponent implements OnInit, OnChanges {
         this.plot.draw();
         this.plot.clearSelection();
         this.plotAnnotations();
+
+        // Emit selected region of chart
+        let region: ChartSelection = range;
+        region.maxPeak = maxLocalIntensity;
+        this.selection.emit(region);
       });
 
       // Add button to reset selection zooming
@@ -230,11 +247,11 @@ export class NgMassSpecPlotterComponent implements OnInit, OnChanges {
     this.plot.setData(plotData);
 
     // Compute plot limits
-    let [mzMax, intensityMax] = this.computePlotLimits(this.parsedData.data);
+    let [mzMin, mzMax, intensityMax] = this.computePlotLimits(this.parsedData.data);
 
     // Reset x-axis range
     $.each(this.plot.getXAxes(), (_, axis) => {
-      axis.options.min = 0;
+      axis.options.min = mzMin;
       axis.options.max = 1.05 * mzMax;
     });
 
@@ -252,6 +269,7 @@ export class NgMassSpecPlotterComponent implements OnInit, OnChanges {
     if (typeof this.miniPlot === 'undefined') {
       this.plotAnnotations();
     }
+    this.redrawn.emit(true);
   }
 
   /**

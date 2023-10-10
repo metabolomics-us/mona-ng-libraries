@@ -50,9 +50,14 @@ The `lib-ng-mass-spec-plotter` component must use a unique id and be contained w
 
 Additional optional attributes include:
 * `miniPlot`: Creates a small, square, unlabeled figure for previews.
-* `pmzMax`: Sets the maximum value of the x-axis. If undefined, @wcmc/ng-mass-spec-plotter determines it automatically.
+* `pmzMin`: Sets the minimum x-axis limit. If undefined, the x-axis minimum is set to 0.
+* `pmzMax`: Sets the maximum x-axis limit. If undefined, the x-axis maximum is set to 1.05 times the peak with the largest m/z value.
 * `truncate`: Sets the number label of each peak to four decimal places.
 * `normalize`: numerical value to which to normalize spectra.
+
+Additional events
+* `(selection)`: When a user clicks and drags on the chart, an object with min/max x- and y-axis values of the zoomed-in section will emit.
+* `(redrawn)`: Emits true when the chart is redrawn; for example, when the user clicks the reset button in the upper-right-hand corner of the chart.
 
 ## SpeckTackle Usage
 
@@ -108,4 +113,5 @@ Additional optional attributes include:
 * `yLabel`: y-axis label (default: Abundance)
 * `spectrumLabel`: a label for the primary spectrum for the legend
 * `libraryLabel`: a label for the reverse/library spectrum for the legend
-* `pmzMax`: Sets the maximum value of the x-axis. If undefined, @wcmc/ng-mass-spec-plotter determines it automatically.
+* `pmzMin`: Sets the minimum x-axis limit. If undefined, the x-axis minimum is set to 0.
+* `pmzMax`: Sets the maximum x-axis limit. If undefined, the x-axis maximum is set to 1.1 times the peak with the largest m/z value.

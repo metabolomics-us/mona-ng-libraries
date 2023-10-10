@@ -1,6 +1,6 @@
 {
   "name": "@wcmc/ng-mass-spec-plotter",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A mass spectrum visualization component for Angular",
   "contributors": [
     {
