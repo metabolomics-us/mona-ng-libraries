@@ -49,11 +49,12 @@ The `lib-ng-mass-spec-plotter` component must use a unique id and be contained w
 ```
 
 Additional optional attributes include:
-* `miniPlot`: Creates a small, square, unlabeled figure for previews.
-* `pmzMin`: Sets the minimum x-axis limit. If undefined, the x-axis minimum is set to 0.
-* `pmzMax`: Sets the maximum x-axis limit. If undefined, the x-axis maximum is set to 1.05 times the peak with the largest m/z value.
-* `truncate`: Sets the number label of each peak to four decimal places.
-* `normalize`: numerical value to which to normalize spectra.
+* `miniPlot`: Boolean. Creates a small, square, unlabeled figure for previews.
+* `pmzMin`: Number. Sets the minimum x-axis limit. If undefined, the x-axis minimum is set to 0.
+* `pmzMax`: Number. Sets the maximum x-axis limit. If undefined, the x-axis maximum is set to 1.05 times the peak with the largest m/z value.
+* `truncate`: Boolean. Sets the number label of each peak to four decimal places.
+* `normalize`: Number. Value to which to normalize spectra.
+* `sciY`: Boolean. Sets the y-axis ticks to scientific notation.
 
 Additional events
 * `(selection)`: When a user clicks and drags on the chart, an object with min/max x- and y-axis values of the zoomed-in section will emit.
@@ -107,11 +108,11 @@ To plot a heads-to-tails figure:
 ```
 
 Additional optional attributes include:
-* `normalize`: numerical value to which to normalize spectra (default: 100 for heads-to-tails plots, no scaling for single spectrum)
-* `title`: plot title (no title by default)
-* `xLabel`: x-axis label (default: m/z)
-* `yLabel`: y-axis label (default: Abundance)
-* `spectrumLabel`: a label for the primary spectrum for the legend
-* `libraryLabel`: a label for the reverse/library spectrum for the legend
-* `pmzMin`: Sets the minimum x-axis limit. If undefined, the x-axis minimum is set to 0.
-* `pmzMax`: Sets the maximum x-axis limit. If undefined, the x-axis maximum is set to 1.1 times the peak with the largest m/z value.
+* `normalize`: Number. Value to which to normalize spectra (default: 100 for heads-to-tails plots, no scaling for single spectrum)
+* `title`: String. Plot title (no title by default)
+* `xLabel`: String. X-axis label (default: m/z)
+* `yLabel`: String. Y-axis label (default: Abundance)
+* `spectrumLabel`: String. Label for the primary spectrum for the legend
+* `libraryLabel`: String. Label for the reverse/library spectrum for the legend
+* `pmzMin`: Number. Sets the minimum x-axis limit. If undefined, the x-axis minimum is set to 0.
+* `pmzMax`: Number. Sets the maximum x-axis limit. If undefined, the x-axis maximum is set to 1.1 times the peak with the largest m/z value.
