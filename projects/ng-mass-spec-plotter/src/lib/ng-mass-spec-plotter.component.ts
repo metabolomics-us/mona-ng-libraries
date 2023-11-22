@@ -36,6 +36,7 @@ export class NgMassSpecPlotterComponent implements OnInit, OnChanges {
   // Emit limits of user selection
   @Output() selection = new EventEmitter<any>();
   @Output() redrawn = new EventEmitter<boolean>();
+  @Output() reset = new EventEmitter<boolean>();
 
   parsedData: any;
   plot;
@@ -180,6 +181,7 @@ export class NgMassSpecPlotterComponent implements OnInit, OnChanges {
       }).appendTo(this.placeholder).click((event) => {
         event.preventDefault();
         this.redrawPlot();
+        this.reset.emit(true);
       });
 
 
