@@ -58,7 +58,8 @@ Additional optional attributes include:
 
 Additional events
 * `(selection)`: When a user clicks and drags on the chart, an object with min/max x- and y-axis values of the zoomed-in section will emit.
-* `(redrawn)`: Emits true when the chart is redrawn; for example, when the user clicks the reset button in the upper-right-hand corner of the chart.
+* `(redrawn)`: Emits true when the chart is redrawn.
+* `(reset)`: Emits true when the user clicks the reset button in the upper-right-hand corner of the chart.
 
 ## SpeckTackle Usage
 
